@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "../Modal";
+import Modal from "../../Modal";
 import EventDetailForm from "./EventDetailForm";
 
 type Event = {
@@ -15,10 +15,10 @@ type Event = {
 };
 
 type Object = {
-  id: number,
+  detectedObjectId: number,
   categoryName: string,
-  cropImageUrl: string,
-  alias: string | null,
+  cropImgUrl: string,
+  alias?: string | null,
   feature: string
 };
 

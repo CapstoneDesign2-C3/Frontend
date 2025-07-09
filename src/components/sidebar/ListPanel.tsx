@@ -1,12 +1,13 @@
 import { useState } from "react";
-import ObjectSummarizeForm from "./ObjectSummarizeForm";
-import EventSummarizeForm from "./EventSummarizeForm";
+import ObjectSummarizeForm from "./object/ObjectSummarizeForm";
+import EventSummarizeForm from "./object/EventSummarizeForm";
+import EventForm from "./event/EventForm";
 
 type Object = {
-  id: number,
+  detectedObjectId: number,
   categoryName: string,
-  cropImageUrl: string,
-  alias: string | null,
+  cropImgUrl: string,
+  alias?: string | null,
   feature: string
 };
 
@@ -26,9 +27,10 @@ type ObjectListProps = {
   objects: Object[];
   events: Event[];
   setSelectedEvents: any;
+  selected: 'object'|'event';
 };
 
-function ObjectList({ objects, events, setSelectedEvents }: ObjectListProps) {
+function ListPanel({ objects, events, setSelectedEvents, selected }: ObjectListProps) {
   const [selectedObject, setSelectedObject] = useState<Object | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -36,22 +38,22 @@ function ObjectList({ objects, events, setSelectedEvents }: ObjectListProps) {
     setSelectedObject(object);
     setSidebarOpen(true);
 
-    const relatedEvents = events.filter(e => e.object_id === object.id);
+    const relatedEvents = events.filter(e => e.object_id === object.detectedObjectId);
     setSelectedEvents(relatedEvents);
   };
 
   const handleCloseSidebar = () => setSidebarOpen(false);
 
   const selectedEvents = selectedObject
-    ? events.filter(e => e.object_id === selectedObject.id)
+    ? events.filter(e => e.object_id === selectedObject.detectedObjectId)
     : [];
 
   return (
     <div className="flex">
-      <div className="flex-1 space-y-2 w-[300px] p-4 h-full">
+      {selected === 'object' && (<div className="flex-1 space-y-2 w-[300px] p-4 h-full">
         {objects.map(obj => (
           <ObjectSummarizeForm
-            key={obj.id}
+            key={obj.detectedObjectId}
             object={obj}
             handleObjectClick={() => handleObjectClick(obj)}
           />
@@ -78,10 +80,21 @@ function ObjectList({ objects, events, setSelectedEvents }: ObjectListProps) {
             </div>
           </div>
         )}
-      </div>
+      </div>)}
+      {selected === 'event' && (
+        <div className="flex-1 space-y-2 w-[300px] p-4 h-full">
+          {events.map(event => (
+          <EventForm
+            key={event.id}
+            event={event}
+            isModal={true}
+          />
+        ))}
+        </div>
+      )}
     </div>
   );
 }
 
 
-export default ObjectList;
+export default ListPanel;

@@ -1,11 +1,12 @@
+import { useState } from "react";
 import FilterPanel from "./FilterPanel";
-import ObjectList from "./ObjectList";
+import ListPanel from "./ListPanel";
 
 type Object = {
-  id: number,
+  detectedObjectId: number,
   categoryName: string,
-  cropImageUrl: string,
-  alias: string | null,
+  cropImgUrl: string,
+  alias?: string | null,
   feature: string
 };
 
@@ -32,12 +33,14 @@ interface SideBarProps {
 
 //
 function SideBar({objects, events, setSelectedEvents, setObjects, setEvents}: SideBarProps) {
+  const [selected, setSelected] = useState<'object' | 'event'>('object');
+
   return (
     <div className="relative h-full">
       <div className="w-[300px] bg-white border-l flex flex-col h-full">
-        <FilterPanel setObjects={setObjects} setEvents={setEvents}/>
+        <FilterPanel setObjects={setObjects} setEvents={setEvents} selected={selected} setSelected={setSelected}/>
         <div className="overflow-y-auto">
-          <ObjectList setSelectedEvents={setSelectedEvents} objects={objects} events={events}/>
+          <ListPanel setSelectedEvents={setSelectedEvents} objects={objects} events={events} selected={selected}/>
         </div>
       </div>
     </div>

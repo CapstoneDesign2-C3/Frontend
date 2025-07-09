@@ -2,6 +2,13 @@ import { useEffect, useState } from "react";
 import { Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
 import useKakaoLoader from "./useKakaoLoader";
 
+type Camera = {
+  id: number;
+  scenery: string;
+  latitude: number;
+  longitude: number;
+}
+
 type Event = {
   id: number;
   object_id: number;
@@ -16,6 +23,8 @@ type Event = {
 
 interface KakaoMapProps {
   events?: Event[];
+  cameras?: Camera[];
+  onMarkerClick?: (camera: Camera) => void;
 }
 
 function getMarkerSvgDataUrl(number: number) {
@@ -50,8 +59,7 @@ function getMapLevelByDistance(maxDistance: number) {
   return 1;
 }
 
-
-function KakaoMap({ events = [] }: KakaoMapProps) {
+function KakaoMap({ events = [], cameras = [], onMarkerClick }: KakaoMapProps) {
   useKakaoLoader();
 
   const [position, setPosition] = useState<{ lat: number; lng: number } | null>(null);
@@ -109,7 +117,7 @@ function KakaoMap({ events = [] }: KakaoMapProps) {
       level={level}
       className="w-full h-screen"
     >
-      {/* 마커 표시 */}
+      {/* 이벤트 마커 표시 */}
       {events.map((event, idx) => (
         <MapMarker
           key={event.id}
@@ -122,8 +130,23 @@ function KakaoMap({ events = [] }: KakaoMapProps) {
         />
       ))}
 
+      {/* 카메라 마커 표시 */}
+      {cameras.map((camera, idx) => (
+        <MapMarker
+          key={camera.id}
+          position={{ lat: camera.latitude, lng: camera.longitude }}
+          image={{
+            src: getMarkerSvgDataUrl(idx + 1),
+            size: { width: 40, height: 54 },
+            options: { offset: { x: 20, y: 54 } }
+          }}
+          clickable={true}
+          onClick={() => onMarkerClick && onMarkerClick(camera)}
+        />
+      ))}
+
       {/* 폴리라인(직선) 표시 */}
-      {path.length > 1 && (
+      {path.length > 1 && events.length > 1 && (
         <Polyline
           path={path}
           strokeWeight={4}
