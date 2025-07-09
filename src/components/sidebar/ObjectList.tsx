@@ -48,7 +48,7 @@ function ObjectList({ objects, events, setSelectedEvents }: ObjectListProps) {
 
   return (
     <div className="flex">
-      <div className="flex-1 w-[300px] p-4 h-full">
+      <div className="flex-1 space-y-2 w-[300px] p-4 h-full">
         {objects.map(obj => (
           <ObjectSummarizeForm
             key={obj.id}
