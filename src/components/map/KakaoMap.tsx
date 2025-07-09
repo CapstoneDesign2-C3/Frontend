@@ -45,8 +45,8 @@ function getMapLevelByDistance(maxDistance: number) {
   if (maxDistance > 50) return 12;
   if (maxDistance > 30) return 10;
   if (maxDistance > 20) return 9;
-  if (maxDistance > 5) return 5;
-  if (maxDistance > 1) return 3;
+  if (maxDistance > 5) return 6;
+  if (maxDistance > 1) return 2;
   return 1;
 }
 
