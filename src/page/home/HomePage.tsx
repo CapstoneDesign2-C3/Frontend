@@ -70,54 +70,54 @@ const mock_events = [
 
 const mock_objects = [
   {
-    id: 1,
+    detectedObjectId: 1,
     categoryName: "person",
-    cropImageUrl: "https://m.media-amazon.com/images/I/61UhhuendiS.jpg",
+    cropImgUrl: "https://m.media-amazon.com/images/I/61UhhuendiS.jpg",
     alias: null,
     feature: "초록색 인간"
   },
   {
-    id: 2,
+    detectedObjectId: 2,
     categoryName: "person",
-    cropImageUrl: "https://m.media-amazon.com/images/I/61UhhuendiS.jpg",
+    cropImgUrl: "https://m.media-amazon.com/images/I/61UhhuendiS.jpg",
     alias: "pepe2",
     feature: "초록색 인간"
   },
   {
-    id: 3,
+    detectedObjectId: 3,
     categoryName: "person",
-    cropImageUrl: "https://m.media-amazon.com/images/I/61UhhuendiS.jpg",
+    cropImgUrl: "https://m.media-amazon.com/images/I/61UhhuendiS.jpg",
     alias: "pepe3",
     feature: "초록색 인간"
   },
   {
-    id: 4,
+    detectedObjectId: 4,
     categoryName: "person",
-    cropImageUrl: "https://m.media-amazon.com/images/I/61UhhuendiS.jpg",
+    cropImgUrl: "https://m.media-amazon.com/images/I/61UhhuendiS.jpg",
     alias: "pepe4",
     feature: "초록색 인간"
   },
   {
-    id: 5,
+    detectedObjectId: 5,
     categoryName: "person",
-    cropImageUrl: "https://m.media-amazon.com/images/I/61UhhuendiS.jpg",
+    cropImgUrl: "https://m.media-amazon.com/images/I/61UhhuendiS.jpg",
     alias: "pepe5",
     feature: "초록색 인간"
   },
   {
-    id: 6,
+    detectedObjectId: 6,
     categoryName: "person",
-    cropImageUrl: "https://m.media-amazon.com/images/I/61UhhuendiS.jpg",
+    cropImgUrl: "https://m.media-amazon.com/images/I/61UhhuendiS.jpg",
     alias: "pepe6",
     feature: "초록색 인간"
   },
 ]
 
 type Object = {
-  id: number,
+  detectedObjectId: number,
   categoryName: string,
-  cropImageUrl: string,
-  alias: string | null,
+  cropImgUrl: string,
+  alias?: string | null,
   feature: string
 };
 
