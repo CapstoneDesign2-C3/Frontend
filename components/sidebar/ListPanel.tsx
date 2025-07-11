@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ObjectSummarizeForm from "./object/ObjectSummarizeForm";
 import EventSummarizeForm from "./object/EventSummarizeForm";
-import EventForm from "./event/EventForm";
+import EventForm from "./video/VideoForm";
 import axios from "axios";
 
 type Object = {

@@ -1,57 +1,27 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import axios from 'axios';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ObjectSummarizeForm from "../../../components/sidebar/object/ObjectSummarizeForm";
-import { mock_video } from "../../../components/mock/MockData";
-
-type detectedObject = {
-  detectedObjectId: number;
-  categoryName: string;
-  cropImgUrl: string;
-  alias?: string | null;
-  feature: string;
-};
-
-type Video = {
-  videoUrl: string;
-  cameraScenery: string;
-  latitude: number;
-  longitude: number;
-  summary: string;
-  detectedObjects: detectedObject[];
-};
+import selectedVideoStore from "@/store/selectedVideoStore";
 
 function VideoDetailPage() {
   const params = useParams();
-  const id = params.id; // string | undefined
   const router = useRouter();
-
-  const [video, setVideo] = useState<Video>(mock_video);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const idParam = params.id; // string | undefined
+  const { video, loading, error, fetchVideo } = selectedVideoStore();
 
   useEffect(() => {
-    const fetchEvent = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL; // 환경변수도 NEXT_PUBLIC_ 접두사 사용
-        const response = await axios.get<Video>(`${backendUrl}/api/v1/video/${id}`);
-        setVideo(response.data);
-      } catch (e) {
-        setError("데이터를 불러오지 못했습니다.");
-      } finally {
-        setLoading(false);
-      }
-    };
-    if (id) fetchEvent();
-  }, [id]);
+    if (idParam !== undefined) {
+      const id = Number(idParam);
+      fetchVideo(id);
+      console.log(video);
+    }
+  }, [idParam, fetchVideo]);
 
   if (loading) return <div>로딩 중...</div>;
-  if (error) return <div>{error}</div>;
-  if (!video) return <div>이벤트 정보가 없습니다.</div>;
+  if (error) return <div className="text-red-500">{error}</div>;
+  if (!video) return <div>이벤트 정보가 없습니다. 잠시만 기다려주세요.</div>;
 
   return (
     <div className="flex p-6">
@@ -62,7 +32,7 @@ function VideoDetailPage() {
             src={video.videoUrl}
             controls
             autoPlay
-            className="w-full h-80 rounded mb-2 bg-black"
+            className="rounded mb-2 bg-black"
           />
           <div className="flex w-full justify-between items-center">
             <h2 className="whitespace-nowrap">{video.cameraScenery}</h2>
@@ -70,10 +40,6 @@ function VideoDetailPage() {
               <h2 className="text-xs mb-2">위도 | {video.latitude}</h2>
               <h2 className="text-xs mb-2">경도 | {video.longitude}</h2>
             </div>
-          </div>
-          <h2 className="text-xl mt-4">상황 요약</h2>
-          <div className="min-h-[70px] max-h-full w-full border">
-            {video.summary}
           </div>
         </div>
       </div>
@@ -88,8 +54,8 @@ function VideoDetailPage() {
         <h2 className="text-xl text-center mb-4">객체 메뉴</h2>
         <div className="flex-1 max-h-screen overflow-y-auto">
           {video.detectedObjects && video.detectedObjects.length > 0 ? (
-            video.detectedObjects.map((obj) => (
-              <ObjectSummarizeForm key={obj.detectedObjectId} object={obj} />
+            video.detectedObjects.map((obj, idx) => (
+              <ObjectSummarizeForm key={idx} object={obj} />
             ))
           ) : (
             <div className="text-gray-400 text-center py-4">감지된 객체가 없습니다.</div>

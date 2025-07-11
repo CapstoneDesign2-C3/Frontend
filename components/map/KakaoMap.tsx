@@ -2,12 +2,18 @@ import { useEffect, useState } from "react";
 import { Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
 import useKakaoLoader from "./useKakaoLoader";
 
-type Camera = {
-  id: number;
-  scenery: string;
-  latitude: number;
-  longitude: number;
-}
+type CameraSummary = {
+  "id": number,
+  "latitude": number,
+  "longitude": number
+};
+
+type VideoSummary = {
+  videoId: number;
+  thumbnailUrl: string;
+  startTime: string;
+  endTime: string;
+};
 
 type Track = {
   videoId: number,
@@ -15,22 +21,10 @@ type Track = {
   longitudeX: number
 }
 
-type Event = {
-  id: number;
-  object_id: number;
-  title: string;
-  thumbnailUrl: string;
-  videoUrl: string;
-  desc: string;
-  time: string;
-  latitudeY: number;
-  longitudeX: number;
-};
-
 interface KakaoMapProps {
   tracks?: Track[];
-  cameras?: Camera[];
-  onMarkerClick?: (camera: Camera) => void;
+  cameras?: CameraSummary[] | null;
+  onMarkerClick?: (camera: any) => void;
 }
 
 function getMarkerSvgDataUrl(number: number) {
@@ -137,7 +131,7 @@ function KakaoMap({ tracks = [], cameras = [], onMarkerClick }: KakaoMapProps) {
       ))}
 
       {/* 카메라 마커 표시 */}
-      {cameras.map((camera, idx) => (
+      {cameras && cameras.map((camera, idx) => (
         <MapMarker
           key={camera.id}
           position={{ lat: camera.latitude, lng: camera.longitude }}
@@ -147,7 +141,7 @@ function KakaoMap({ tracks = [], cameras = [], onMarkerClick }: KakaoMapProps) {
             options: { offset: { x: 20, y: 54 } }
           }}
           clickable={true}
-          onClick={() => onMarkerClick && onMarkerClick(camera)}
+          onClick={() => onMarkerClick && onMarkerClick(camera.id)}
         />
       ))}
 
