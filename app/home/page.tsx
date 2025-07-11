@@ -1,8 +1,8 @@
 "use client"
 
-import TrackingMap from '../components/map/TrackingMap';
-import CommonHeader from '../components/header/Header'
-import SideBar from '../components/sidebar/SideBar';
+import TrackingMap from '../../components/map/TrackingMap';
+import CommonHeader from '../../components/header/Header'
+import SideBar from '../../components/sidebar/SideBar';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 

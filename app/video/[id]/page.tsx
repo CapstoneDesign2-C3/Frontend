@@ -3,8 +3,8 @@
 import { useParams, useRouter } from "next/navigation";
 import axios from 'axios';
 import { useEffect, useState } from "react";
-import ObjectSummarizeForm from "../../components/sidebar/object/ObjectSummarizeForm";
-import { mock_video } from "../../components/mock/MockData";
+import ObjectSummarizeForm from "../../../components/sidebar/object/ObjectSummarizeForm";
+import { mock_video } from "../../../components/mock/MockData";
 
 type detectedObject = {
   detectedObjectId: number;

@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import KakaoMap from '../components/map/KakaoMap';
-import EventForm from '../components/sidebar/event/EventForm';
+import KakaoMap from '../../components/map/KakaoMap';
+import EventForm from '../../components/sidebar/event/EventForm';
 
 type Camera = {
   id: number;
