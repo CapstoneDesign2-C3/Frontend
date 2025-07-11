@@ -9,6 +9,12 @@ type Camera = {
   longitude: number;
 }
 
+type Track = {
+  videoId: number,
+  latitudeY: number,
+  longitudeX: number
+}
+
 type Event = {
   id: number;
   object_id: number;
@@ -22,7 +28,7 @@ type Event = {
 };
 
 interface KakaoMapProps {
-  events?: Event[];
+  tracks?: Track[];
   cameras?: Camera[];
   onMarkerClick?: (camera: Camera) => void;
 }
@@ -59,7 +65,7 @@ function getMapLevelByDistance(maxDistance: number) {
   return 1;
 }
 
-function KakaoMap({ events = [], cameras = [], onMarkerClick }: KakaoMapProps) {
+function KakaoMap({ tracks = [], cameras = [], onMarkerClick }: KakaoMapProps) {
   useKakaoLoader();
 
   const [position, setPosition] = useState<{ lat: number; lng: number } | null>(null);
@@ -88,7 +94,7 @@ function KakaoMap({ events = [], cameras = [], onMarkerClick }: KakaoMapProps) {
     }
   }, []);
 
-  const path = events.map(e => ({ lat: e.latitudeY, lng: e.longitudeX }));
+  const path = tracks.map(e => ({ lat: e.latitudeY, lng: e.longitudeX }));
 
   const minLat = Math.min(...path.map(p => p.lat));
   const maxLat = Math.max(...path.map(p => p.lat));
@@ -99,14 +105,14 @@ function KakaoMap({ events = [], cameras = [], onMarkerClick }: KakaoMapProps) {
   const rightBottom = { lat: minLat, lng: maxLng };
 
   const center =
-    events && events.length > 0
+    tracks && tracks.length > 0
       ? {
           lat: (leftTop.lat + rightBottom.lat) / 2,
           lng: (leftTop.lng + rightBottom.lng) / 2,
         }
       : position;
 
-  const level = events && events.length > 0
+  const level = tracks && tracks.length > 0
       ? getMapLevelByDistance(haversine(leftTop.lat, leftTop.lng, rightBottom.lat, rightBottom.lng))
       : 3;
 
@@ -118,10 +124,10 @@ function KakaoMap({ events = [], cameras = [], onMarkerClick }: KakaoMapProps) {
       className="w-full h-screen"
     >
       {/* 이벤트 마커 표시 */}
-      {events.map((event, idx) => (
+      {tracks.map((track, idx) => (
         <MapMarker
-          key={event.id}
-          position={{ lat: event.latitudeY, lng: event.longitudeX }}
+          key={track.videoId}
+          position={{ lat: track.latitudeY, lng: track.longitudeX }}
           image={{
             src: getMarkerSvgDataUrl(idx + 1),
             size: { width: 40, height: 54 },
@@ -146,7 +152,7 @@ function KakaoMap({ events = [], cameras = [], onMarkerClick }: KakaoMapProps) {
       ))}
 
       {/* 폴리라인(직선) 표시 */}
-      {path.length > 1 && events.length > 1 && (
+      {path.length > 1 && tracks.length > 1 && (
         <Polyline
           path={path}
           strokeWeight={4}

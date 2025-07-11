@@ -1,14 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ObjectSummarizeForm from "./object/ObjectSummarizeForm";
 import EventSummarizeForm from "./object/EventSummarizeForm";
 import EventForm from "./event/EventForm";
+import axios from "axios";
 
 type Object = {
   detectedObjectId: number,
   categoryName: string,
   cropImgUrl: string,
-  alias?: string | null,
+  alias: string | null,
   feature: string
+};
+
+type Video = {
+  videoId: number;
+  summary: string;
+  appearedTime: string;
+  exitTime: string;
+  thumbnailUrl: string;
 };
 
 type Event = {
@@ -26,30 +35,81 @@ type Event = {
 type ObjectListProps = {
   objects: Object[];
   events: Event[];
-  setSelectedEvents: any;
+  startDate: Date;
+  endDate: Date;
+  setTracks: any;
   selected: 'object'|'event';
 };
 
-function ListPanel({ objects, events, setSelectedEvents, selected }: ObjectListProps) {
+function toLocalDateTimeString(date: Date) {
+  // padStart(2, '0')로 항상 2자리로 맞춤
+  const yyyy = date.getFullYear();
+  const MM = String(date.getMonth() + 1).padStart(2, '0');
+  const dd = String(date.getDate()).padStart(2, '0');
+  const hh = String(date.getHours()).padStart(2, '0');
+  const mm = String(date.getMinutes()).padStart(2, '0');
+  const ss = String(date.getSeconds()).padStart(2, '0');
+  return `${yyyy}-${MM}-${dd}T${hh}:${mm}:${ss}`;
+}
+
+async function fetchSelectedVideos(object: Object, startTime: string, endTime: string) {
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const response = await axios.get(
+    `${backendUrl}api/v1/detection/tracks`,{
+    params:{
+      detectedObjectId: object.detectedObjectId,
+      startTime,
+      endTime,
+    }
+  }
+  );
+  return response.data;
+}
+
+function ListPanel({ objects, events, startDate, endDate, setTracks, selected }: ObjectListProps) {
   const [selectedObject, setSelectedObject] = useState<Object | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const handleObjectClick = (object: Object) => {
+  const [selectedVideos, setSelectedVideos] = useState<Video[]>([]);
+  const handleObjectClick = async (object: Object) => {
     setSelectedObject(object);
     setSidebarOpen(true);
 
-    const relatedEvents = events.filter(e => e.object_id === object.detectedObjectId);
-    setSelectedEvents(relatedEvents);
+    try {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL;
+      const response = await axios.get(
+        `${backendUrl}/api/v1/detection/positions`,{
+        params:{
+          detectedObjectId: object.detectedObjectId,
+          startTime: toLocalDateTimeString(startDate),
+          endTime: toLocalDateTimeString(endDate),
+        }
+      }
+      );
+      setTracks(response.data.content);
+    } catch (error) {
+      console.error("이벤트 데이터를 불러오지 못했습니다.", error);
+      setTracks([]);
+    }
   };
 
   const handleCloseSidebar = () => setSidebarOpen(false);
 
-  const selectedEvents = selectedObject
-    ? events.filter(e => e.object_id === selectedObject.detectedObjectId)
-    : [];
+  useEffect(() => {
+    if (!selectedObject) {
+      setSelectedVideos([]);
+      return;
+    }
+
+    fetchSelectedVideos(selectedObject, toLocalDateTimeString(startDate), toLocalDateTimeString(endDate))
+      .then(data => setSelectedVideos(data))
+      .catch(err => {
+        console.error("비디오 트랙 데이터를 불러오지 못했습니다.", err);
+        setSelectedVideos([]);
+      });
+  }, [selectedObject]);
 
   return (
-    <div className="flex">
+    <div className="flex overflow-y-auto">
       {selected === 'object' && (<div className="flex-1 space-y-2 w-[300px] p-4 h-full">
         {objects.map(obj => (
           <ObjectSummarizeForm
@@ -73,8 +133,8 @@ function ListPanel({ objects, events, setSelectedEvents, selected }: ObjectListP
                 {selectedObject?.alias ?? "이름 없음"}의 이벤트 목록
               </h2>
               {selectedObject &&
-                selectedEvents.map((event) => (
-                  <EventSummarizeForm key={event.id} event={event} object={selectedObject} />
+                selectedVideos.map((video) => (
+                  <EventSummarizeForm key={video.videoId} video={video} object={selectedObject} />
                 ))
               }
             </div>

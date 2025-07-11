@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 import { useEffect, useState } from "react";
 import ObjectSummarizeForm from "../../components/sidebar/object/ObjectSummarizeForm";
+import { mock_video } from "../../components/mock/MockData"; 
 
 type detectedObject = {
   detectedObjectId: number;
@@ -20,54 +21,14 @@ type Video = {
   detectedObjects: detectedObject[];
 };
 
-const mock_video = {
-  videoUrl: 'https://marketplace.canva.com/EAGrjo4uTB8/1/document_810w/canva-ma1iPfH6UOo.mp4',
-  cameraScenery: '이곳은 배경입니다.',
-  latitude: 37.4730459,
-  longitude: 127.1027386,
-  summary: "이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.이곳은 설명입니다.",
-  detectedObjects: [
-    {
-      detectedObjectId: 1,
-      categoryName: "person",
-      cropImgUrl: "https://m.media-amazon.com/images/I/61UhhuendiS.jpg",
-      feature: "초록색 인간"
-    },
-    {
-      detectedObjectId: 2,
-      categoryName: "person",
-      cropImgUrl: "https://m.media-amazon.com/images/I/61UhhuendiS.jpg",
-      feature: "초록색 인간"
-    },
-    {
-      detectedObjectId: 3,
-      categoryName: "person",
-      cropImgUrl: "https://m.media-amazon.com/images/I/61UhhuendiS.jpg",
-      feature: "초록색 인간"
-    },
-    {
-      detectedObjectId: 4,
-      categoryName: "person",
-      cropImgUrl: "https://m.media-amazon.com/images/I/61UhhuendiS.jpg",
-      feature: "초록색 인간"
-    },
-    {
-      detectedObjectId: 5,
-      categoryName: "person",
-      cropImgUrl: "https://m.media-amazon.com/images/I/61UhhuendiS.jpg",
-      feature: "초록색 인간"
-    },
-  ]
-}
-
 function VideoDetailPage() {
   const { id } = useParams();
-  //const [video, setVideo] = useState<Video | null>(mock_video);
   const [video, setVideo] = useState<Video>(mock_video);
+  const navigate = useNavigate();
+  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
-
+  
   useEffect(() => {
     const fetchEvent = async () => {
       try {
@@ -84,11 +45,10 @@ function VideoDetailPage() {
     };
     if (id) fetchEvent();
   }, [id]);
-
+  
   if (loading) return <div>로딩 중...</div>;
   if (error) return <div>{error}</div>;
   if (!video) return <div>이벤트 정보가 없습니다.</div>;
-
  
   return (
     <div className="flex p-6">
