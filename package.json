@@ -15,7 +15,8 @@
     "react": "^19.0.0",
     "react-datepicker": "^8.4.0",
     "react-dom": "^19.0.0",
-    "react-kakao-maps-sdk": "^1.2.0"
+    "react-kakao-maps-sdk": "^1.2.0",
+    "zustand": "^5.0.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
