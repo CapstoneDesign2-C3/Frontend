@@ -36,7 +36,7 @@ function EventDetailForm({video, object}: EventDetailFormProps) {
   useEffect(() => {
     const fetchVideoDetail = async () => {
       try {
-        const backendUrl = import.meta.env.VITE_BACKEND_URL;
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
         const response = await axios.get(
           `${backendUrl}/api/v1/video/${video.videoId}`
         );

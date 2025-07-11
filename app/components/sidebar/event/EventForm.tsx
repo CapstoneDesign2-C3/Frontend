@@ -1,7 +1,9 @@
+"use client";
+
 import { useState } from "react";
 import Modal from "../../Modal";
 import EventDetailForm from "../object/EventDetailForm";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation"; // 변경된 부분
 
 type Event = {
   id: number;
@@ -21,7 +23,7 @@ interface EventFormPros {
 
 function EventForm({ event, isModal }: EventFormPros) {
   const [modalOpen, setModalOpen] = useState(false);
-  const navigate = useNavigate();
+  const router = useRouter(); // 변경된 부분
 
   const handleEventDetailFormClick = () => {
     setModalOpen(true);
@@ -32,7 +34,7 @@ function EventForm({ event, isModal }: EventFormPros) {
   };
 
   const handleMoveToPage = () => {
-    navigate(`/videos/${event.id}`);
+    router.push(`/videos/${event.id}`); // 변경된 부분
   };
 
   return (

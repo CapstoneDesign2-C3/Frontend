@@ -1,8 +1,10 @@
-import { useNavigate, useParams } from "react-router-dom";
+"use client";
+
+import { useParams, useRouter } from "next/navigation";
 import axios from 'axios';
 import { useEffect, useState } from "react";
 import ObjectSummarizeForm from "../../components/sidebar/object/ObjectSummarizeForm";
-import { mock_video } from "../../components/mock/MockData"; 
+import { mock_video } from "../../components/mock/MockData";
 
 type detectedObject = {
   detectedObjectId: number;
@@ -22,19 +24,20 @@ type Video = {
 };
 
 function VideoDetailPage() {
-  const { id } = useParams();
+  const params = useParams();
+  const id = params.id; // string | undefined
+  const router = useRouter();
+
   const [video, setVideo] = useState<Video>(mock_video);
-  const navigate = useNavigate();
-  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   useEffect(() => {
     const fetchEvent = async () => {
       try {
         setLoading(true);
         setError(null);
-        const backendUrl = import.meta.env.VITE_BACKEND_URL;
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL; // 환경변수도 NEXT_PUBLIC_ 접두사 사용
         const response = await axios.get<Video>(`${backendUrl}/api/v1/video/${id}`);
         setVideo(response.data);
       } catch (e) {
@@ -45,11 +48,11 @@ function VideoDetailPage() {
     };
     if (id) fetchEvent();
   }, [id]);
-  
+
   if (loading) return <div>로딩 중...</div>;
   if (error) return <div>{error}</div>;
   if (!video) return <div>이벤트 정보가 없습니다.</div>;
- 
+
   return (
     <div className="flex p-6">
       {/* 왼쪽: 영상/상황 요약 */}
@@ -75,10 +78,10 @@ function VideoDetailPage() {
         </div>
       </div>
       {/* 오른쪽: 객체 메뉴 */}
-       <div className="w-[20%] h-full p-4 border-l flex flex-col">
+      <div className="w-[20%] h-full p-4 border-l flex flex-col">
         <button
           className="mb-4 text-sm text-blue-600 hover:underline self-start flex items-center gap-1"
-          onClick={() => navigate(-1)}
+          onClick={() => router.back()}
         >
           <span aria-hidden="true">←</span> 이전 페이지
         </button>
@@ -92,7 +95,7 @@ function VideoDetailPage() {
             <div className="text-gray-400 text-center py-4">감지된 객체가 없습니다.</div>
           )}
         </div>
-  </div>
+      </div>
     </div>
   );
 }

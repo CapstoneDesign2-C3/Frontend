@@ -1,7 +1,8 @@
+"use client";
+
 import { useEffect, useState } from 'react';
-import CommonHeader from '../../components/header/Header.tsx'
-import KakaoMap from '../../components/map/KakaoMap.tsx';
-import EventForm from '../../components/sidebar/event/EventForm.tsx';
+import KakaoMap from '../components/map/KakaoMap';
+import EventForm from '../components/sidebar/event/EventForm';
 
 type Camera = {
   id: number;
@@ -122,7 +123,7 @@ const mock_cameras = [
 
 
 
-function CameraLayout(){
+function Camera(){
   const [selectedCamera, setSelectedCamera] = useState<Camera | null>(null);
   const [selectedEvents, setSelectedEvents] = useState<Event[] | null>(null);
 
@@ -138,7 +139,6 @@ function CameraLayout(){
 
   return (
     <div>
-      <CommonHeader />
       <div className="flex h-screen bg-gray-100">
         <div className="flex-1 relative">
           <KakaoMap cameras={mock_cameras} onMarkerClick={setSelectedCamera} />
@@ -170,4 +170,4 @@ function CameraLayout(){
   );
 }
 
-export default CameraLayout;
+export default Camera;

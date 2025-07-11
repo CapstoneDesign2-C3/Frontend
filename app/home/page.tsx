@@ -1,6 +1,8 @@
-import TrackingMap from '../../components/map/TrackingMap.tsx';
-import CommonHeader from '../../components/header/Header.tsx'
-import SideBar from '../../components/sidebar/SideBar.tsx';
+"use client"
+
+import TrackingMap from '../components/map/TrackingMap';
+import CommonHeader from '../components/header/Header'
+import SideBar from '../components/sidebar/SideBar';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -51,7 +53,7 @@ function HomeLayout(){
   useEffect(() => {
     const fetchObjects = async () => {
       try {
-        const backendUrl = import.meta.env.VITE_BACKEND_URL;
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
         const response = await axios.get(`${backendUrl}/api/v1/detected-object`);
         setObjects(response.data);
       } catch (error) {
