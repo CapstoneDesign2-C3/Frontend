@@ -16,7 +16,7 @@ type CameraSummary = {
 };
 
 type CameraStore = {
-  cameras: CameraSummary[] | null;
+  cameras: CameraSummary[];
   camera: Camera | null;
   setCameras: (cameras: CameraSummary[]) => void;
   selectCamera: (cameraId: number | null) => Promise<void>;
@@ -24,7 +24,7 @@ type CameraStore = {
 };
 
 const cameraStore = create<CameraStore>((set) => ({
-  cameras: null,
+  cameras: [],
   camera: null,
   setCameras: (cameras) => set({ cameras }),
   // cameraId를 받아 해당 카메라 상세 정보를 API에서 받아와 camera에 저장
@@ -48,7 +48,7 @@ const cameraStore = create<CameraStore>((set) => ({
       const res = await axios.get<CameraSummary[]>(`${backendUrl}/api/v1/camera`);
       set({ cameras: res.data });
     } catch (error) {
-      set({ cameras: null });
+      set({ cameras: [] });
       console.error("카메라 목록을 불러오지 못했습니다:", error);
     }
   },

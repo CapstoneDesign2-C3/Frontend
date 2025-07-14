@@ -1,48 +1,14 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import ObjectSummarizeForm from "./object/ObjectSummarizeForm";
 import EventSummarizeForm from "./object/EventSummarizeForm";
-import EventForm from "./video/VideoForm";
-import axios from "axios";
+import detectedObjectStore from "@/store/detectedObjectStore";
+import searchStore from "@/store/searchStore";
+import mapStore from "@/store/mapStore";
 
-type Object = {
-  detectedObjectId: number,
-  categoryName: string,
-  cropImgUrl: string,
-  alias: string | null,
-  feature: string
-};
-
-type Video = {
-  videoId: number;
-  summary: string;
-  appearedTime: string;
-  exitTime: string;
-  thumbnailUrl: string;
-};
-
-type Event = {
-  id: number;
-  object_id: number;
-  title: string;
-  thumbnailUrl: string;
-  videoUrl: string;
-  desc: string;
-  time: string;
-  latitudeY: number;
-  longitudeX: number;
-};
-
-type ObjectListProps = {
-  objects: Object[];
-  events: Event[];
-  startDate: Date;
-  endDate: Date;
-  setTracks: any;
-  selected: 'object'|'event';
-};
-
-function toLocalDateTimeString(date: Date) {
-  // padStart(2, '0')로 항상 2자리로 맞춤
+function toLocalDateTimeString(date: Date | null): string {
+  if (!date) return "";
   const yyyy = date.getFullYear();
   const MM = String(date.getMonth() + 1).padStart(2, '0');
   const dd = String(date.getDate()).padStart(2, '0');
@@ -52,66 +18,41 @@ function toLocalDateTimeString(date: Date) {
   return `${yyyy}-${MM}-${dd}T${hh}:${mm}:${ss}`;
 }
 
-async function fetchSelectedVideos(object: Object, startTime: string, endTime: string) {
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  const response = await axios.get(
-    `${backendUrl}api/v1/detection/tracks`,{
-    params:{
-      detectedObjectId: object.detectedObjectId,
-      startTime,
-      endTime,
-    }
-  }
-  );
-  return response.data;
-}
 
-function ListPanel({ objects, events, startDate, endDate, setTracks, selected }: ObjectListProps) {
-  const [selectedObject, setSelectedObject] = useState<Object | null>(null);
+type Object = {
+  detectedObjectId: number,
+  categoryName: string,
+  cropImgUrl: string,
+  alias: string | null,
+  feature: string
+};
+
+function ListPanel() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [selectedVideos, setSelectedVideos] = useState<Video[]>([]);
+  const handleCloseSidebar = () => setSidebarOpen(false);
+  const detectedObjects = detectedObjectStore(state => state.detectedObjects);
+  const fetchDetectedObjects = detectedObjectStore(state => state.fetchDetectedObjects);
+  const selectedObject = detectedObjectStore(state => state.selectedObject);
+  const setSelectedObject = detectedObjectStore(state => state.setSelectedObject);
+  const selectedVideos = detectedObjectStore(state => state.selectedVideos);
+  const setSelectedVideos = detectedObjectStore(state => state.setSelectedVideos);
+  const dateRange = searchStore(state => state.dateRange);
+  const setTracks = mapStore(state => state.setTracks);
+
   const handleObjectClick = async (object: Object) => {
     setSelectedObject(object);
+    setSelectedVideos(object.detectedObjectId, toLocalDateTimeString(dateRange[0]), toLocalDateTimeString(dateRange[1]));
     setSidebarOpen(true);
-
-    try {
-      const backendUrl = import.meta.env.VITE_BACKEND_URL;
-      const response = await axios.get(
-        `${backendUrl}/api/v1/detection/positions`,{
-        params:{
-          detectedObjectId: object.detectedObjectId,
-          startTime: toLocalDateTimeString(startDate),
-          endTime: toLocalDateTimeString(endDate),
-        }
-      }
-      );
-      setTracks(response.data.content);
-    } catch (error) {
-      console.error("이벤트 데이터를 불러오지 못했습니다.", error);
-      setTracks([]);
-    }
+    selectedObject && setTracks(selectedObject.detectedObjectId, toLocalDateTimeString(dateRange[0]), toLocalDateTimeString(dateRange[1]));
   };
 
-  const handleCloseSidebar = () => setSidebarOpen(false);
-
   useEffect(() => {
-    if (!selectedObject) {
-      setSelectedVideos([]);
-      return;
-    }
-
-    fetchSelectedVideos(selectedObject, toLocalDateTimeString(startDate), toLocalDateTimeString(endDate))
-      .then(data => setSelectedVideos(data))
-      .catch(err => {
-        console.error("비디오 트랙 데이터를 불러오지 못했습니다.", err);
-        setSelectedVideos([]);
-      });
-  }, [selectedObject]);
+  fetchDetectedObjects();
+  }, []);
 
   return (
-    <div className="flex overflow-y-auto">
-      {selected === 'object' && (<div className="flex-1 space-y-2 w-[300px] p-4 h-full">
-        {objects.map(obj => (
+    <div className="flex overflow-y-auto"><div className="flex-1 space-y-2 w-[300px] p-4 h-full">
+        {detectedObjects.map(obj => (
           <ObjectSummarizeForm
             key={obj.detectedObjectId}
             object={obj}
@@ -133,25 +74,14 @@ function ListPanel({ objects, events, startDate, endDate, setTracks, selected }:
                 {selectedObject?.alias ?? "이름 없음"}의 이벤트 목록
               </h2>
               {selectedObject &&
-                selectedVideos.map((video) => (
-                  <EventSummarizeForm key={video.videoId} video={video} object={selectedObject} />
+                selectedVideos.map((video, idx) => (
+                  <EventSummarizeForm key={video.detectionId} video={video} idx={idx + 1} />
                 ))
               }
             </div>
           </div>
         )}
-      </div>)}
-      {selected === 'event' && (
-        <div className="flex-1 space-y-2 w-[300px] p-4 h-full">
-          {events.map(event => (
-          <EventForm
-            key={event.id}
-            event={event}
-            isModal={true}
-          />
-        ))}
-        </div>
-      )}
+      </div>
     </div>
   );
 }

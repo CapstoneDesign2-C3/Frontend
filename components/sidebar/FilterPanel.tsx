@@ -1,54 +1,28 @@
-import axios from 'axios';
-import { useState } from 'react';
+"use client"
 
-interface FilterPanelProps{
-  setEvents: any;
-  setObjects: any;
-  selected: string;
-  setSelected: any;
-}
+import detectedObjectStore from '@/store/detectedObjectStore';
+import searchStore from '@/store/searchStore';
 
-interface FilterPanelProps {
-  setEvents: any;
-  setObjects: any;
-  selected: string;
-  setSelected: any;
-}
-
-function FilterPanel({ setEvents, setObjects, selected, setSelected }: FilterPanelProps) {
-  // 각 입력값을 위한 상태
-  const [categoryName, setCategoryName] = useState<string>("");
-  const [eventName, setEventName] = useState<string>("");
-  const [alias, setAlias] = useState<string>("");
-  const [searchInput, setSearchInput] = useState<string>("");
-
-  const handleEvents = () => {
-    setEvents([]);
-  };
-
-  const handleObjects = async () => {
-    try {
-      const backendUrl = import.meta.env.VITE_BACKEND_URL;
-      const response = await axios.get(`${backendUrl}/api/v1/detected-object`, {
-        params: {
-          categoryName: categoryName || undefined, // 값이 없으면 undefined로
-          alias: alias || undefined,
-          searchInput: searchInput || undefined,
-        },
-      });
-      setObjects(response.data);
-    } catch (error) {
-      console.error("오브젝트 데이터를 불러오지 못했습니다.", error);
-    }
-  };
+function FilterPanel() {
+  const {dateRange, setDateRange, 
+    selected, setSelected, 
+    categoryName, setCategoryName,
+     videoName, setVideoName, 
+    alias, setAlias, 
+    searchInput, setSearchInput} = searchStore();
+  
+  const setDetectedObjects = detectedObjectStore(state => state.setDetectedObjects);
 
   const handleSelected = (e: "object" | "event") => {
-    setSelected(e);
     setCategoryName("");
-    setEventName("");
+    setVideoName("");
     setAlias("");
     setSearchInput("");
   };
+
+  const handleObjects = () => {
+    setDetectedObjects(categoryName, alias, searchInput);
+  }
 
   return (
     <div className="p-3 border-b bg-white flex flex-col gap-2">
@@ -102,13 +76,13 @@ function FilterPanel({ setEvents, setObjects, selected, setSelected }: FilterPan
       )}
       {selected === "event" && (
         <div className="flex flex-col gap-2 pr-3">
-          <select className="border rounded px-1 py-1 flex-1" value={eventName} onChange={e => setEventName(e.target.value)}>
-            <option value="select">이벤트를 선택하세요.</option>
+          <select className="border rounded px-1 py-1 flex-1" value={videoName} onChange={e => setVideoName(e.target.value)}>
+            <option value="select">비디오를 선택하세요.</option>
             <option value="fire">화재</option>
           </select>
           <input type="text" className="border rounded px-1 py-1 flex-1" placeholder="alias를 입력하세요." value={alias} />
           <input type="text" className="border rounded px-1 py-1 flex-1" placeholder="키워드를 입력하세요." value={searchInput}/>
-          <button className="px-3 py-1 bg-blue-500 text-white rounded" onClick={handleEvents}>
+          <button className="px-3 py-1 bg-blue-500 text-white rounded"> 
             검색
           </button>
         </div>

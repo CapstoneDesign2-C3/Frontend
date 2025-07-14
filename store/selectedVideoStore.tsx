@@ -5,7 +5,7 @@ type DetectedObject = {
   detectedObjectId: number;
   categoryName: string;
   cropImgUrl: string;
-  alias?: string | null;
+  alias: string | null;
   feature: string;
 };
 
