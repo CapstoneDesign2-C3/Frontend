@@ -1,7 +1,7 @@
 "use client";
 
 import cameraStore from '@/store/cameraStore';
-import KakaoMap from '../../components/map/KakaoMap';
+import KakaoMap from '../../components/map/GoogleMap';
 import EventForm from '../../components/sidebar/video/VideoForm';
 import { useEffect } from 'react';
 

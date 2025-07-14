@@ -2,7 +2,7 @@
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import KakaoMap from './KakaoMap';
+import KakaoMap from './GoogleMap';
 import searchStore from '@/store/searchStore';
 
 function TrackingMap() {

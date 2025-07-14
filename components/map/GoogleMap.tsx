@@ -1,36 +1,19 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
-import useKakaoLoader from "./useKakaoLoader";
+import { GoogleMap, Marker, Polyline, useJsApiLoader } from "@react-google-maps/api";
 import mapStore from "@/store/mapStore";
 
-// 타입 정의
-type CameraSummary = {
-  id: number;
-  latitude: number;
-  longitude: number;
-};
-
-type Track = {
-  detectionId: number;
-  latitudeY: number;
-  longitudeX: number;
-};
-
-type Point = {
-  id: number;
-  lat: number;
-  lng: number;
-  type: "camera" | "track";
-};
-
-interface KakaoMapProps {
+// 타입 정의는 동일
+type CameraSummary = { id: number; latitude: number; longitude: number; };
+type Track = { detectionId: number; latitudeY: number; longitudeX: number; };
+type Point = { id: number; lat: number; lng: number; type: "camera" | "track"; };
+interface GoogleMapProps {
   cameras?: CameraSummary[];
   onMarkerClick?: (cameraId: number) => void;
 }
 
-// 변환 함수: cameras/tracks → Point[]
+// 변환 함수
 function convertToPoint(
   cameras?: CameraSummary[],
   tracks?: Track[]
@@ -60,7 +43,7 @@ function convertToPoint(
   return [[], null];
 }
 
-// SVG 마커 생성 함수
+// SVG 마커 생성 함수 (구글맵 Marker의 icon에 url로 사용)
 function getMarkerSvgDataUrl(number: number) {
   const svg = `
     <svg width="40" height="40" viewBox="0 0 40 54" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -72,7 +55,7 @@ function getMarkerSvgDataUrl(number: number) {
   return "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
 }
 
-// 거리 계산 함수
+// 거리, 줌레벨 함수 (구글맵은 zoom 1~20, level 변환 필요)
 function haversine(lat1: number, lon1: number, lat2: number, lon2: number) {
   const R = 6371;
   const toRad = (deg: number) => (deg * Math.PI) / 180;
@@ -87,27 +70,27 @@ function haversine(lat1: number, lon1: number, lat2: number, lon2: number) {
   return R * c;
 }
 
-// 줌 레벨 계산 함수
-function getMapLevelByDistance(maxDistance: number) {
-  if (maxDistance > 50) return 12;
-  if (maxDistance > 30) return 10;
-  if (maxDistance > 20) return 9;
-  if (maxDistance > 5) return 6;
-  if (maxDistance > 1) return 2;
-  return 1;
+// 카카오맵 level → 구글맵 zoom 변환 (예시)
+function getGoogleMapZoomByDistance(maxDistance: number) {
+  if (maxDistance > 50) return 7;
+  if (maxDistance > 30) return 9;
+  if (maxDistance > 20) return 10;
+  if (maxDistance > 5) return 11;
+  if (maxDistance > 1) return 12;
+  return 18;
 }
 
-// KakaoMap 컴포넌트
-function KakaoMap({ cameras = [], onMarkerClick }: KakaoMapProps) {
-  useKakaoLoader();
+// GoogleMap 컴포넌트
+function MyGoogleMap({ cameras = [], onMarkerClick }: GoogleMapProps) {
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
+  });
 
   const [position, setPosition] = useState<{ lat: number; lng: number } | null>(null);
   const tracks = mapStore(state => state.tracks);
 
-  // 트랙/카메라 → 포인트 변환
   const [points, type] = useMemo(() => convertToPoint(cameras, tracks), [cameras, tracks]);
 
-  // 위치 정보 가져오기
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -132,7 +115,6 @@ function KakaoMap({ cameras = [], onMarkerClick }: KakaoMapProps) {
     }
   }, []);
 
-  // 중심 좌표 및 경계 계산
   const minLat = useMemo(() => Math.min(...points.map(p => p.lat)), [points]);
   const maxLat = useMemo(() => Math.max(...points.map(p => p.lat)), [points]);
   const minLng = useMemo(() => Math.min(...points.map(p => p.lng)), [points]);
@@ -152,70 +134,70 @@ function KakaoMap({ cameras = [], onMarkerClick }: KakaoMapProps) {
     [points, leftTop, rightBottom, position]
   );
 
-  const level = useMemo(
+  const zoom = useMemo(
     () =>
       points && points.length > 0
-        ? getMapLevelByDistance(
+        ? getGoogleMapZoomByDistance(
             haversine(leftTop.lat, leftTop.lng, rightBottom.lat, rightBottom.lng)
           )
-        : 3,
+        : 14,
     [points, leftTop, rightBottom]
   );
 
-  return center ? (
-    <Map
-      key={`${center?.lat}-${center?.lng}-${level}`}
-      id="map"
+  if (!isLoaded || !center) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        위치 정보를 가져오는 중...
+      </div>
+    );
+  }
+
+  return (
+    <GoogleMap
+      mapContainerClassName="w-full h-screen"
       center={center}
-      level={level}
-      className="w-full h-screen"
+      zoom={zoom}
+      options={{ streetViewControl: false, mapTypeControl: false }}
     >
-      {/* 트랙 마커 */}
       {type === "track" &&
         points.map((point, idx) => (
-          <MapMarker
+          <Marker
             key={point.id}
             position={{ lat: point.lat, lng: point.lng }}
-            image={{
-              src: getMarkerSvgDataUrl(idx + 1),
-              size: { width: 40, height: 54 },
-              options: { offset: { x: 20, y: 54 } },
+            icon={{
+              url: getMarkerSvgDataUrl(idx + 1),
+              scaledSize: new window.google.maps.Size(40, 54),
+              anchor: new window.google.maps.Point(20, 54),
             }}
           />
         ))}
 
-      {/* 카메라 마커 */}
       {type === "camera" &&
         points.map((point, idx) => (
-          <MapMarker
+          <Marker
             key={point.id}
             position={{ lat: point.lat, lng: point.lng }}
-            image={{
-              src: getMarkerSvgDataUrl(idx + 1),
-              size: { width: 40, height: 54 },
-              options: { offset: { x: 20, y: 54 } },
+            icon={{
+              url: getMarkerSvgDataUrl(idx + 1),
+              scaledSize: new window.google.maps.Size(40, 54),
+              anchor: new window.google.maps.Point(20, 54),
             }}
-            clickable={true}
             onClick={() => onMarkerClick && onMarkerClick(point.id)}
           />
         ))}
 
-      {/* 트랙 선 */}
       {type === "track" && points.length > 1 && (
         <Polyline
           path={points.map(p => ({ lat: p.lat, lng: p.lng }))}
-          strokeWeight={4}
-          strokeColor="#2563eb"
-          strokeOpacity={0.9}
-          strokeStyle="solid"
+          options={{
+            strokeColor: "#2563eb",
+            strokeOpacity: 0.9,
+            strokeWeight: 4,
+          }}
         />
       )}
-    </Map>
-  ) : (
-    <div className="w-full h-screen flex items-center justify-center">
-      위치 정보를 가져오는 중...
-    </div>
+    </GoogleMap>
   );
 }
 
-export default KakaoMap;
+export default MyGoogleMap;
