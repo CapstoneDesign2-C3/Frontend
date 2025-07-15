@@ -8,7 +8,7 @@ import selectedVideoStore from "@/store/selectedVideoStore";
 function VideoDetailPage() {
   const params = useParams();
   const router = useRouter();
-  const idParam = params.id; // string | undefined
+  const idParam = params.id;
   const { video, loading, error, fetchVideo } = selectedVideoStore();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function VideoDetailPage() {
 
   if (loading) return <div>로딩 중...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
-  if (!video) return <div>이벤트 정보가 없습니다. 잠시만 기다려주세요.</div>;
+  if (!video) return <div>비디오 정보가 없습니다. 잠시만 기다려주세요.</div>;
 
   return (
     <div className="flex p-6">
