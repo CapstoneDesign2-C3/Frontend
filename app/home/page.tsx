@@ -7,11 +7,7 @@ import { useEffect } from 'react';
 
 function HomeLayout(){
   const fetchDetectedObjects = detectedObjectStore(state => state.fetchDetectedObjects);
-
-  useEffect(() => {
-    fetchDetectedObjects();
-  }, []);
-
+  
   return (
     <div className="h-screen w-screen">
       <div className="flex h-full">
