@@ -1,37 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ObjectSummarizeForm from "./object/ObjectSummarizeForm";
 import EventSummarizeForm from "./object/EventSummarizeForm";
 import detectedObjectStore from "@/store/detectedObjectStore";
 import searchStore from "@/store/searchStore";
 import mapStore from "@/store/mapStore";
-
-function toLocalDateTimeString(date: Date | null): string {
-  if (!date) return "";
-  const yyyy = date.getFullYear();
-  const MM = String(date.getMonth() + 1).padStart(2, '0');
-  const dd = String(date.getDate()).padStart(2, '0');
-  const hh = String(date.getHours()).padStart(2, '0');
-  const mm = String(date.getMinutes()).padStart(2, '0');
-  const ss = String(date.getSeconds()).padStart(2, '0');
-  return `${yyyy}-${MM}-${dd}T${hh}:${mm}:${ss}`;
-}
-
-
-type Object = {
-  detectedObjectId: number,
-  categoryName: string,
-  cropImgUrl: string,
-  alias: string | null,
-  feature: string
-};
+import { DetectedObject, toLocalDateTimeString } from "@/utils/objectUtils";
 
 function ListPanel() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const handleCloseSidebar = () => setSidebarOpen(false);
+  const handleCloseSidebar = () => {
+    setSidebarOpen(false)
+  };
   const detectedObjects = detectedObjectStore(state => state.detectedObjects);
-  const fetchDetectedObjects = detectedObjectStore(state => state.fetchDetectedObjects);
   const selectedObject = detectedObjectStore(state => state.selectedObject);
   const setSelectedObject = detectedObjectStore(state => state.setSelectedObject);
   const selectedVideos = detectedObjectStore(state => state.selectedVideos);
@@ -39,16 +21,12 @@ function ListPanel() {
   const dateRange = searchStore(state => state.dateRange);
   const setTracks = mapStore(state => state.setTracks);
 
-  const handleObjectClick = async (object: Object) => {
+  const handleObjectClick = (object: DetectedObject) => {
     setSelectedObject(object);
+    setTracks(object.detectedObjectId, toLocalDateTimeString(dateRange[0]), toLocalDateTimeString(dateRange[1]));
     setSelectedVideos(object.detectedObjectId, toLocalDateTimeString(dateRange[0]), toLocalDateTimeString(dateRange[1]));
     setSidebarOpen(true);
-    selectedObject && setTracks(selectedObject.detectedObjectId, toLocalDateTimeString(dateRange[0]), toLocalDateTimeString(dateRange[1]));
   };
-
-  useEffect(() => {
-  fetchDetectedObjects();
-  }, []);
 
   return (
     <div className="flex overflow-y-auto"><div className="flex-1 space-y-2 w-[300px] p-4 h-full">
@@ -85,6 +63,5 @@ function ListPanel() {
     </div>
   );
 }
-
 
 export default ListPanel;

@@ -1,22 +1,24 @@
 "use client";
 
 import cameraStore from '@/store/cameraStore';
-import KakaoMap from '../../components/map/GoogleMap';
+import GoogleMap from '../../components/map/GoogleMap';
 import EventForm from '../../components/sidebar/video/VideoForm';
 import { useEffect } from 'react';
+import mapStore from '@/store/mapStore';
 
 function Camera(){
-  const {camera, cameras, selectCamera, fetchCameras} = cameraStore();
+  const {camera, selectCamera} = cameraStore();
+  const fetchCameras = mapStore(state => state.fetchCameras);
 
   useEffect(() => {
     fetchCameras();
-  }, [fetchCameras]);
+  }, []);
 
   return (
     <div>
       <div className="flex h-screen bg-gray-100">
         <div className="flex-1 relative">
-          <KakaoMap cameras={cameras} onMarkerClick={selectCamera} />
+          <GoogleMap onMarkerClick={selectCamera} />
         </div>
         {camera && (<div className="w-[300px] bg-white border-l flex flex-col h-full">
           <div className="flex justify-between items-center border">
