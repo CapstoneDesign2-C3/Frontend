@@ -11,10 +11,10 @@ function FilterPanel() {
     alias, setAlias, 
     searchInput, setSearchInput} = searchStore();
   
-  const setDetectedObjects = detectedObjectStore(state => state.setDetectedObjects);
+  const fetchDetectedObjects = detectedObjectStore(state => state.fetchDetectedObjects);
 
   const handleObjects = () => {
-    setDetectedObjects(categoryName, alias, searchInput);
+    fetchDetectedObjects(0, 5, categoryName, alias, searchInput);
   }
 
   return (

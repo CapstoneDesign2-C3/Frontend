@@ -22,12 +22,11 @@ type DetectedObjectStore = {
   hasNext: boolean;
   isLoading: boolean;
   detectedObjects: DetectedObject[];
-  setDetectedObjects: (categoryName: string, alias: string, searchInput: string) => void; 
   selectedObject: DetectedObject | null;
   setSelectedObject: (selectedObject: DetectedObject) => void;
   selectedVideos: Video[];
   setSelectedVideos: (detectedObjectId: number, startTime: string, endTime: string) => void;
-  fetchDetectedObjects: (page: number, size: number) => void;
+  fetchDetectedObjects: (page: number, size: number, categoryName?: string, alias?: string, searchInput?: string) => void;
 }
 
 const detectedObjectStore = create<DetectedObjectStore>((set) => ({
@@ -35,25 +34,6 @@ const detectedObjectStore = create<DetectedObjectStore>((set) => ({
   page: 0,
   hasNext: true,
   isLoading: false,
-  setDetectedObjects: async (categoryName: string, alias: string, searchInput: string) => {
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-    try {
-      const res = await axios.get<DetectedObject[]>(
-        `${backendUrl}/api/v1/detected-object`,
-        {
-          params: {
-            categoryName,
-            alias,
-            searchInput
-          }
-        }
-      );
-      set({ detectedObjects: res.data.content });
-    } catch (error) {
-      set({ detectedObjects: [] });
-      console.error("객체 목록을 불러오지 못했습니다:", error);
-    }
-  },
   selectedObject: null,
   setSelectedObject: (selectedObject: DetectedObject) => set({ selectedObject: selectedObject}),
   selectedVideos: [],
@@ -75,15 +55,21 @@ const detectedObjectStore = create<DetectedObjectStore>((set) => ({
       console.error("객체의 영상 목록을 불러오지 못했습니다:", error);
     }
   },
-  fetchDetectedObjects: async (page, size) => {
+  fetchDetectedObjects: async (page, size, categoryName, alias, searchInput) => {
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
     set({ isLoading: true });
     try {
       const res = await axios.get(`${backendUrl}/api/v1/detected-object`, {
-        params: { page, size },
+        params: {
+        page,
+        size,
+        ...(categoryName !== "" && { categoryName }),
+        ...(alias !== "" && { alias }),
+        ...(searchInput !== "" && { searchInput }),
+      }
       });
 
-      const { content, last, number, totalPages } = res.data;
+      const { content, last } = res.data;
 
       set((state) => ({
         detectedObjects: content,
