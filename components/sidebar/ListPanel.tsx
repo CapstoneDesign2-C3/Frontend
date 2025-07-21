@@ -24,36 +24,37 @@ function ListPanel() {
 
   const dateRange = searchStore((state) => state.dateRange);
   const setTracks = mapStore((state) => state.setTracks);
+  const alias = searchStore(state => state.alias);
 
   const handleObjectClick = (object: DetectedObject) => {
     setSelectedObject(object);
     setTracks(
       object.detectedObjectId,
-      toLocalDateTimeString(dateRange[0]),
-      toLocalDateTimeString(dateRange[1])
+      toLocalDateTimeString(dateRange[0], "start"),
+      toLocalDateTimeString(dateRange[1], "end")
     );
     setSelectedVideos(
       object.detectedObjectId,
-      toLocalDateTimeString(dateRange[0]),
-      toLocalDateTimeString(dateRange[1])
+      toLocalDateTimeString(dateRange[0], "start"),
+      toLocalDateTimeString(dateRange[1], "end")
     );
     setSidebarOpen(true);
   };
 
   const handlePrevPage = () => {
     if (page > 0) {
-      fetchDetectedObjects(page - 1, 5);
+      fetchDetectedObjects(page - 1, 5, alias);
     }
   };
 
   const handleNextPage = () => {
     if (hasNext) {
-      fetchDetectedObjects(page + 1, 5);
+      fetchDetectedObjects(page + 1, 5, alias);
     }
   };
 
   useEffect(() => {
-    fetchDetectedObjects(0, 5);
+    fetchDetectedObjects(0, 5, alias);
   }, []);
 
   return (
@@ -80,7 +81,7 @@ function ListPanel() {
         {detectedObjects.map((obj) => (
           <ObjectSummarizeForm
             key={obj.detectedObjectId}
-            object={obj}
+            detectedObject={obj}
             handleObjectClick={() => handleObjectClick(obj)}
           />
         ))}

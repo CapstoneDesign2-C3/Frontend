@@ -15,12 +15,7 @@ function FilterPanel() {
 
   return (
     <div className="p-3 border-b bg-white flex flex-col gap-2">
-      <div className="flex gap-2">
-        <button className={"px-3 py-1 bg-blue-500 text-white rounded"}>
-          객체
-        </button>
-      </div>
-      <div className="flex flex-col gap-2 pr-3">
+      <div className="flex flex-col gap-2">
         <input
           type="text"
           className="border rounded px-1 py-1 flex-1"
