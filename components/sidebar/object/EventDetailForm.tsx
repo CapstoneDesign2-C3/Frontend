@@ -1,24 +1,7 @@
+import { Video, VideoDetail } from "@/utils/videoUtil";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-type Video = {
-  detectionId : number,
-  cameraScenery : string,
-  thumbnailUrl : string,
-  appearedTime : string,
-  exitTime : string,
-}
-
-type VideoDetail = {
-  videoUrl: string,
-  detectedObjectUUID: string,
-  detectedObjectAlias: string,
-  detectedObjectCropUrl: string,
-  appearedTime: string,
-  exitTime: string,
-  categoryName: string,
-  feature: string
-};
 
 interface EventDetailFormProps {
   video: Video;

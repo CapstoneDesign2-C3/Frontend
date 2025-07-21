@@ -1,21 +1,14 @@
 import { useState } from "react";
 import Modal from "../../Modal";
 import EventDetailForm from "./EventDetailForm";
-
-type Video = {
-  detectionId : number,
-  cameraScenery : string,
-  thumbnailUrl : string,
-  appearedTime : string,
-  exitTime : string,
-}
+import { Video } from "@/utils/videoUtil";
 
 interface EventSummarizeFormProps {
   video: Video;
   idx: number;
 }
 
-function EventSummarizeForm({ video, idx}: EventSummarizeFormProps) {
+function EventSummarizeForm({ video, idx }: EventSummarizeFormProps) {
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleEventDetailFormClick = () => {

@@ -1,17 +1,11 @@
 "use client";
 
+import { VideoSummary } from "@/utils/videoUtil";
 import { useRouter } from "next/navigation";
 
 interface EventFormPros {
   video: VideoSummary;
 }
-
-type VideoSummary = {
-  videoId: number;
-  thumbnailUrl: string;
-  startTime: string;
-  endTime: string;
-};
 
 function VideoForm({ video }: EventFormPros) {
   const router = useRouter();

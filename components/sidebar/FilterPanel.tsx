@@ -4,13 +4,12 @@ import detectedObjectStore from '@/store/detectedObjectStore';
 import searchStore from '@/store/searchStore';
 
 function FilterPanel() {
-  const {dateRange, setDateRange, 
-    selected, setSelected, 
-    categoryName, setCategoryName,
-     videoName, setVideoName, 
-    alias, setAlias, 
-    searchInput, setSearchInput} = searchStore();
-  
+  const categoryName = searchStore(state => state.categoryName);
+  const setCategoryName = searchStore(state => state.setCategoryName);
+  const alias = searchStore(state => state.alias);
+  const setAlias = searchStore(state => state.setAlias);
+  const searchInput = searchStore(state => state.searchInput);
+  const setSearchInput = searchStore(state => state.setSearchInput);
   const fetchDetectedObjects = detectedObjectStore(state => state.fetchDetectedObjects);
 
   const handleObjects = () => {
