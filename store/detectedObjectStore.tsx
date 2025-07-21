@@ -55,7 +55,7 @@ const detectedObjectStore = create<DetectedObjectStore>((set) => ({
       console.error("객체의 영상 목록을 불러오지 못했습니다:", error);
     }
   },
-  fetchDetectedObjects: async (page, size, categoryName, alias, searchInput) => {
+  fetchDetectedObjects: async (page, size, alias) => {
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
     set({ isLoading: true });
     try {
@@ -63,9 +63,7 @@ const detectedObjectStore = create<DetectedObjectStore>((set) => ({
         params: {
         page,
         size,
-        ...(categoryName !== "" && { categoryName }),
         ...(alias !== "" && { alias }),
-        ...(searchInput !== "" && { searchInput }),
       }
       });
 
