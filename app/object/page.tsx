@@ -1,5 +1,5 @@
-import TrackingMap from '../../components/map/TrackingMap';
-import SideBar from '../../components/sidebar/SideBar';
+import TrackingMap from '@/components/map/TrackingMap';
+import SideBar from '@/app/object/sidebar/SideBar';
 
 function HomeLayout(){
   return (

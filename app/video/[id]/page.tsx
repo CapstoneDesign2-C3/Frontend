@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import ObjectSummarizeForm from "../../../components/sidebar/object/ObjectSummarizeForm";
+import ObjectSummarizeForm from "@/app/object/sidebar/object/ObjectSummarizeForm";
 import selectedVideoStore from "@/store/selectedVideoStore";
 
 function VideoDetailPage() {
@@ -55,7 +55,7 @@ function VideoDetailPage() {
         <div className="flex-1 max-h-screen overflow-y-auto">
           {video.detectedObjects && video.detectedObjects.length > 0 ? (
             video.detectedObjects.map((obj, idx) => (
-              <ObjectSummarizeForm key={idx} object={obj} />
+              <ObjectSummarizeForm key={idx} detectedObject={obj} />
             ))
           ) : (
             <div className="text-gray-400 text-center py-4">감지된 객체가 없습니다.</div>
