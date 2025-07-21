@@ -4,7 +4,7 @@ function CommonHeader() {
       <nav>
         <ul>
           <li className="flex space-x-10 px-6 py-3">
-            <a href="/home" className="text-black hover:text-blue-400 font-semibold">Home</a>
+            <a href="/object" className="text-black hover:text-blue-400 font-semibold">Object</a>
             <a href="/camera" className="text-black hover:text-blue-400 font-semibold">Camera</a>
             <a href="/report" className="text-black hover:text-blue-400 font-semibold">Report</a>
           </li>
