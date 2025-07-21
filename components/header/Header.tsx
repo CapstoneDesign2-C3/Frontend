@@ -5,7 +5,7 @@ function CommonHeader() {
         <ul>
           <li className="flex space-x-10 px-6 py-3">
             <a href="/object" className="text-black hover:text-blue-400 font-semibold">Object</a>
-            <a href="/video" className="text-black hover:text-blue-400 font-semibold">Video</a>
+            <a href="/event" className="text-black hover:text-blue-400 font-semibold">Event</a>
             <a href="/camera" className="text-black hover:text-blue-400 font-semibold">Camera</a>
             <a href="/report" className="text-black hover:text-blue-400 font-semibold">Report</a>
           </li>

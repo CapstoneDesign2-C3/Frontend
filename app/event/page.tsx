@@ -3,7 +3,7 @@
 import TrackingMap from '@/components/map/TrackingMap';
 import mapStore from '@/store/mapStore';
 import { useEffect } from 'react';
-import SideBar from '@/app/event/sidebar/SideBar';
+import SideBar from './sidebar/SideBar';
 
 function VideoPage(){
   const fetchCameras = mapStore(state => state.fetchCameras);
