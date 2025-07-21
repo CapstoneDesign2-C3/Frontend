@@ -3,7 +3,7 @@ import SideBar from '../../components/sidebar/SideBar';
 
 function HomeLayout(){
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen">
       <div className="flex h-full">
         <TrackingMap />
         <SideBar />
