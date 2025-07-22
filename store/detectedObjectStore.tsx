@@ -40,7 +40,7 @@ const detectedObjectStore = create<DetectedObjectStore>((set) => ({
   setSelectedVideos: async (detectedObjectId: number, startTime: string, endTime: string) => {
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
     try {
-      const res = await axios.get<DetectedObject[]>(`${backendUrl}/api/v1/detection/tracks`,
+      const res = await axios.get(`${backendUrl}/api/v1/detection/tracks`,
         {
           params: {
             detectedObjectId: detectedObjectId,

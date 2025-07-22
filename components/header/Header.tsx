@@ -1,3 +1,5 @@
+import ChatbotButton from "@/components/ChatbotButton";
+
 function CommonHeader() {
   return (
     <header className="bg-white shadow border-[1px] border-[#b1b1b1]">
@@ -11,6 +13,7 @@ function CommonHeader() {
           </li>
         </ul>
       </nav>
+      <ChatbotButton />
     </header>
   );
 };
