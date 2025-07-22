@@ -35,7 +35,7 @@ function EventSummarizeForm({ event }: EventSummarizeFormProps) {
       </div>
       
       <Modal open={modalOpen} onClose={handleClose}>
-        <EventDetailForm videoId={event.videoId} />
+        <EventDetailForm eventId={event.eventId} />
       </Modal>
     </>
   );

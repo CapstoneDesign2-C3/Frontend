@@ -65,7 +65,7 @@ function ListPanel() {
 
         {events.map(event => (
           <EventSummarizeForm
-            event={event}
+            event={event} key={event.eventId}
           />
         ))}
 

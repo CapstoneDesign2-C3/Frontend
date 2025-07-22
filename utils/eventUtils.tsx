@@ -1,5 +1,6 @@
 export type Event = {
   videoId: number;
+  eventId: number;
   eventUUID: string;
   eventCodeName: string;
   videoThumbnailUrl: string;
