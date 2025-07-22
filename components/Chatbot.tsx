@@ -27,7 +27,7 @@ function chatbot() {
     setLoading(true);
 
     const data = buildRequestData(messages);
-
+    // TODO : 실제 llm 주소로 변경해야함.
     try {
       const response = await axios.post("/llm", {
         data
