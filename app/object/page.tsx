@@ -1,9 +1,9 @@
-import TrackingMap from '../../components/map/TrackingMap';
-import SideBar from '../../components/sidebar/SideBar';
+import TrackingMap from '@/components/map/TrackingMap';
+import SideBar from '@/app/object/sidebar/SideBar';
 
 function HomeLayout(){
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen">
       <div className="flex h-full">
         <TrackingMap />
         <SideBar />

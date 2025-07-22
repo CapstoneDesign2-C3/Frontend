@@ -1,8 +1,8 @@
 "use client";
 
 import cameraStore from '@/store/cameraStore';
-import GoogleMap from '../../components/map/GoogleMap';
-import EventForm from '../../components/sidebar/video/VideoForm';
+import GoogleMap from '@/components/map/GoogleMap';
+import EventForm from '@/components/VideoForm';
 import { useEffect } from 'react';
 import mapStore from '@/store/mapStore';
 

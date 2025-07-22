@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "../../Modal";
+import Modal from "@/components/Modal";
 import EventDetailForm from "./EventDetailForm";
 import { Video } from "@/utils/videoUtil";
 

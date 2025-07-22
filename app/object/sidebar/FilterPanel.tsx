@@ -2,7 +2,7 @@
 
 import detectedObjectStore from '@/store/detectedObjectStore';
 import searchStore from '@/store/searchStore';
-import SearchButton from '../SearchButton';
+import SearchButton from '@/components/SearchButton';
 
 function FilterPanel() {
   const alias = searchStore(state => state.alias);
