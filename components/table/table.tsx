@@ -1,7 +1,8 @@
 "use client";
 
 import detectedObjectStore from "@/store/detectedObjectStore";
-import { useEffect, useState } from "react";
+import objectReportStore from "@/store/objectReportStore";
+import { useEffect } from "react";
 
 function Table() {
   const detectedObjects = detectedObjectStore(state => state.detectedObjects);
@@ -9,8 +10,9 @@ function Table() {
   const page = detectedObjectStore(state => state.page);
   const isLoading = detectedObjectStore(state => state.isLoading);
   const hasNext = detectedObjectStore(state => state.hasNext);
-
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
+  const selectedIds = objectReportStore(state => state.selectedIds);
+  const toggleSelectedId = objectReportStore(state => state.toggleSelectedId);
+  const toggleAllOnCurrentPage = objectReportStore(state => state.toggleAllOnCurrentPage);
   const size = 5;
   const handlePrevPage = () => {
     if (page > 0) {
@@ -28,24 +30,12 @@ function Table() {
     fetchDetectedObjects(0, size);
   }, []);
 
-  const toggleCheckbox = (id: number) => {
-    setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
-    );
-  };
-
   const toggleAll = () => {
-  const currentPageIds = detectedObjects.map((obj) => obj.detectedObjectId);
-  const allChecked = currentPageIds.every((id) => selectedIds.includes(id));
+    const currentPageIds = detectedObjects.map((obj) => obj.detectedObjectId);
+    const allChecked = currentPageIds.every((id) => selectedIds.includes(id));
 
-  if (allChecked) {
-    setSelectedIds((prev) =>
-      prev.filter((id) => !currentPageIds.includes(id))
-    );
-  } else {
-    setSelectedIds((prev) => Array.from(new Set([...prev, ...currentPageIds])));
-  }
-};
+    toggleAllOnCurrentPage(allChecked, currentPageIds);
+  };
 
   return (
     <div className="p-4">
@@ -76,7 +66,7 @@ function Table() {
                 <input
                   type="checkbox"
                   checked={selectedIds.includes(obj.detectedObjectId)}
-                  onChange={() => toggleCheckbox(obj.detectedObjectId)}
+                  onChange={() => toggleSelectedId(obj.detectedObjectId)}
                 />
               </td>
               <td className="border p-2 text-center">{obj.detectedObjectId}</td>
