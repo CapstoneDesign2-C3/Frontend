@@ -1,0 +1,49 @@
+"use client"
+
+import { Pie } from "@nivo/pie";
+import { PieData } from "@/utils/chartUtils";
+
+
+
+function PieChart({ pieData }: { pieData: PieData[] }) {
+  return (
+    <div className="border">
+      <Pie
+        data={pieData}
+        margin={{ top: 0, right: 80, bottom: 0, left: 80 }}
+        width={450}
+        height={400}
+        colors={{scheme: 'purple_blue'}}
+        innerRadius={0.75}
+        enableArcLabels={true}
+        arcLinkLabel={d => `${d.id}`}
+        legends={[
+          {
+            anchor: 'right',
+            direction: 'column',
+            effects: [
+              {
+                on: 'hover',
+                style: {
+                  itemTextColor: '#000'
+                }
+              }
+            ],
+            itemHeight: 15,
+            itemTextColor: '#999',
+            itemWidth: 70,
+            symbolShape: 'square',
+            symbolSize: 12,
+            toggleSerie: true,
+            translateX: 60,
+            translateY: 130
+          }
+        ]}
+        activeInnerRadiusOffset={6}
+        layers={["arcs", "arcLabels", "arcLinkLabels", "legends"]}
+      />
+    </div>
+  );
+}
+
+export default PieChart;
