@@ -11,10 +11,14 @@ function ReportPage() {
 
   const handleCreateReport = async () => {
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+    //TODO 이름 작성하게 팝업 띄워서 입력 받기
     try {
       const response = await axios.post(
         `${backendUrl}/api/v1/report/create-mobile-object-track`,
-        selectedIds,
+        {
+          mobileObjectIds: selectedIds,
+          author: "이도훈"
+        },
         {
           headers: { "Content-Type": "application/json" },
           responseType: "blob",
