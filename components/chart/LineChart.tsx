@@ -4,6 +4,8 @@ import { ResponsiveLine } from "@nivo/line";
 import { LineData } from "@/utils/chartUtils";
 
 function LineChart({ lineData }: { lineData: LineData[] }) {
+  const safeData = Array.isArray(lineData) ? lineData : [];
+
   return (
     <div style={{ height: 400, width: 900 }} className="border">
       <ResponsiveLine
@@ -12,9 +14,8 @@ function LineChart({ lineData }: { lineData: LineData[] }) {
           format: '%H',
           tickValues: 'every 1 hour',
         }}
-        
         curve="linear"
-        data={lineData}
+        data={safeData}
         colors={['#87A8CB']}
         enableTouchCrosshair
         initialHiddenIds={['cognac']}
@@ -36,5 +37,6 @@ function LineChart({ lineData }: { lineData: LineData[] }) {
     </div>
   );
 }
+
 
 export default LineChart;

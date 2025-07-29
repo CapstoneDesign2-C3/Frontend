@@ -145,7 +145,7 @@ export const mock_pie = [
 ]
 
 export const mock_line = [{
-  id: 'data',
+  id: 'mock_data 1',
   data: [
     { x: '2018-01-01T01:00:00', y: 7 },
     { x: '2018-01-01T02:00:00', y: 5 },
