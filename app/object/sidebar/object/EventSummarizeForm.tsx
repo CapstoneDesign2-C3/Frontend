@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Modal from "@/components/Modal";
 import EventDetailForm from "./EventDetailForm";
-import { Video } from "@/utils/videoUtil";
+import { Video } from "@/utils/videoUtils";
 
 interface EventSummarizeFormProps {
   video: Video;
