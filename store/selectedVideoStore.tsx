@@ -1,13 +1,6 @@
 import { create } from 'zustand';
 import axios from 'axios';
-
-type DetectedObject = {
-  detectedObjectId: number;
-  categoryName: string;
-  cropImgUrl: string;
-  alias: string | null;
-  feature: string;
-};
+import { DetectedObject } from '@/utils/objectUtils';
 
 type Video = {
   videoUrl: string;
@@ -32,7 +25,7 @@ const selectedVideoStore = create<SelectedVideoStore>((set) => ({
     set({ loading: true, error: null });
     try {
       const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-      const response = await axios.get<Video>(`${backendUrl}/api/v1/video/${videoId}`);
+      const response = await axios.get(`${backendUrl}/api/v1/video/${videoId}`);
       set({ video: response.data, loading: false, error: null });
     } catch (error: any) {
       set({

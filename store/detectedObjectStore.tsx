@@ -1,21 +1,7 @@
+import { DetectedObject } from "@/utils/objectUtils";
+import { Video } from "@/utils/videoUtils";
 import axios from "axios";
 import { create } from "zustand";
-
-type DetectedObject = {
-  detectedObjectId: number,
-  categoryName: string,
-  cropImgUrl: string,
-  alias: string | null,
-  feature: string
-};
-
-type Video = {
-  detectionId : number,
-  cameraScenery : string,
-  thumbnailUrl : string,
-  appearedTime : string,
-  exitTime : string,
-}
 
 type DetectedObjectStore = {
   page: number;

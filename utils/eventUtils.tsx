@@ -17,3 +17,16 @@ export type Video = {
   eventCodeName: string,
   eventRisk: string
 }
+
+export type Camera = {
+  cameraId: number;
+  cameraScenery: string;
+  cameraLatitude: number;
+  cameraLongitude: number;
+  videos: any[];
+};
+
+export type EventCode = {
+  eventCodeId: number;
+  eventCodeName: string;
+};

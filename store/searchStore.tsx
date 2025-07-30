@@ -1,10 +1,6 @@
+import { EventCode } from "@/utils/eventUtils";
 import axios from "axios";
 import { create } from "zustand";
-
-type EventCode = {
-  eventCodeId: number;
-  eventCodeName: string;
-};
 
 interface SearchStore {
   dateRange: [Date | null, Date | null];

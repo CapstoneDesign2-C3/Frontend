@@ -1,6 +1,21 @@
-type CameraSummary = { id: number; latitude: number; longitude: number; };
-type Track = { detectionId: number; latitudeY: number; longitudeX: number; };
-export type Point = { id: number; lat: number; lng: number; type: "camera" | "track"; };
+export type CameraSummary = { 
+  id: number; 
+  latitude: number; 
+  longitude: number; 
+};
+
+export type Track = { 
+  detectionId: number; 
+  latitudeY: number; 
+  longitudeX: number; 
+};
+
+export type Point = { 
+  id: number; 
+  lat: number; 
+  lng: number; 
+  type: "camera" | "track"; 
+};
 
 export function convertToPoint(cameras?: CameraSummary[],tracks?: Track[]): [Point[], "camera" | "track" | null] {
   if (tracks && tracks.length > 0) {

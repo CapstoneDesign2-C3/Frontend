@@ -1,17 +1,6 @@
+import { CameraSummary, Track } from "@/utils/mapUtils";
 import axios from "axios";
 import { create } from "zustand";
-
-type Track = {
-  detectionId: number;
-  latitudeY: number;
-  longitudeX: number;
-};
-
-type CameraSummary = {
-  id: number;
-  latitude: number;
-  longitude: number;
-};
 
 interface MapStore {
   tracks: Track[];
@@ -39,7 +28,7 @@ const mapStore = create<MapStore>((set) => ({
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
     set({ isLoadingTracks: true });
     try {
-      const res = await axios.get<{ content: Track[] }>(
+      const res = await axios.get(
         `${backendUrl}/api/v1/detection/positions`,
         {
           params: {
@@ -60,7 +49,7 @@ const mapStore = create<MapStore>((set) => ({
     set({ isLoadingCameras: true });
 
     try {
-      const res = await axios.get<CameraSummary[]>(
+      const res = await axios.get(
         `${backendUrl}/api/v1/camera`
       );
       set({ cameras: res.data, isLoadingCameras: false });
