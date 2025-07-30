@@ -7,7 +7,7 @@
 - Next.js : 15.3.1
 - React : 19.1.0
 - Zustand : 5.0.4
-- 그 외 DatePick, Nivo, GoogleMap API, Axios, Tailwind CSS를 사용하고 있습니다.
+- 그 외 DatePicker, Nivo, GoogleMap API, Axios, Tailwind CSS를 사용하고 있습니다.
 
 ## 주요 기능
 1. 통계 대시보드 페이지 : 날짜를 선택하면 해당 일자의 이벤트와 관련된 통계를 나타냅니다.
