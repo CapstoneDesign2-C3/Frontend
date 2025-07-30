@@ -1,4 +1,4 @@
-import { Video, VideoDetail } from "@/utils/videoUtil";
+import { Video, VideoDetail } from "@/utils/videoUtils";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
