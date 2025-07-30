@@ -1,10 +1,15 @@
-라이브러리 버전
+## 바로가기
+- [라이브러리 버전](#라이브러리-버전)
+- [주요 기능](#주요-기능)
+- [실행 방법](#실행-방법)
+
+## 라이브러리 버전
 - Next.js : 15.3.1
 - React : 19.1.0
 - Zustand : 5.0.4
 - 그 외 DatePick, Nivo, GoogleMap API, Axios, Tailwind CSS를 사용하고 있습니다.
 
-주요 기능
+## 주요 기능
 1. 통계 대시보드 페이지 : 날짜를 선택하면 해당 일자의 이벤트와 관련된 통계를 나타냅니다.
 <img width="1880" height="854" alt="image" src="https://github.com/user-attachments/assets/0a31388d-15b8-437c-8b4b-0273a10af81e" />
 
@@ -23,3 +28,24 @@
 
 6. 챗봇 모달 : 오른쪽 위의 ? 버튼을 클릭하여 챗봇 모달 창을 불러올 수 있으며, 자연어 형태로 원하는 데이터를 조회할 수 있습니다. (현재 API 미연결)
 <img width="1890" height="855" alt="image" src="https://github.com/user-attachments/assets/bc70edda-3a49-48de-ad93-7e12a36d7adb" />
+
+## 실행 방법
+먼저 환경 변수를 지정하여야 합니다. 디렉토리의 최상위에 ".env.local" 파일을 생성하고, 해당 환경 변수의 값을 알맞게 추가합니다.
+
+```
+#.env.local
+NEXT_PUBLIC_BACKEND_URL={백엔드 서버의 주소}
+NEXT_PUBLIC_GOOGLE_MAP_API_KEY={GOOGLE MAP API 키}
+```
+
+그 후 Dockerfile을 기반으로 Docker Image를 생성합니다.
+
+```
+>> docker build -t {이미지 이름} .
+```
+
+마지막으로 Docker Container에 해당 이미지를 불러와 실행합니다. 이때 포트 번호는 상황에 맞게 변경하시면 됩니다. 저는 3000번 포트로 접속하였습니다.
+
+```
+>> docker run -p 3000:3000 {이미지 이름}
+```
