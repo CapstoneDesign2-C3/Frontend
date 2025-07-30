@@ -20,8 +20,8 @@ function BarChart({ barData }: { barData: BarData[] }){
           right: 60,
           top: 60
         }}
-        colorBy="data"
-        colors={{ scheme: "purple_blue"}}
+        colorBy="indexValue"
+        colors={{ scheme: "purple_blue" }}
         padding={0.4}
         
       />
