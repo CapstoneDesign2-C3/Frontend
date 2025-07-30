@@ -28,7 +28,7 @@ function HomePage() {
           <DatePicker
             selected={date}
             onChange={(selectedDate) => {
-              setDate(selectedDate);
+              if (selectedDate) setDate(selectedDate);
             }}
             dateFormat="yyyy-MM-dd"
             maxDate={new Date()}
