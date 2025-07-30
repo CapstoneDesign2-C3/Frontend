@@ -4,10 +4,10 @@ import { ResponsiveLine } from "@nivo/line";
 import { LineData } from "@/utils/chartUtils";
 
 function LineChart({ lineData }: { lineData: LineData[] }) {
-  const safeData = Array.isArray(lineData) ? lineData : [];
+  const safeData = Array.isArray(lineData) ? lineData : []; 
 
   return (
-    <div style={{ height: 400, width: 900 }} className="border">
+    <div className="border border h-[40vh] w-[45vw]">
       <ResponsiveLine
         animate
         axisBottom={{

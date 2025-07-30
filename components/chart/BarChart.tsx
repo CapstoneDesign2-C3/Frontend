@@ -1,15 +1,13 @@
 "use client"
 
 import { BarData } from "@/utils/chartUtils";
-import { Bar } from "@nivo/bar";
+import { ResponsiveBar } from "@nivo/bar";
 
 function BarChart({ barData }: { barData: BarData[] }){
   return(
-    <div className="border">
-      <Bar
+    <div className="border h-[40vh] w-[35vw]">
+      <ResponsiveBar
         data={barData}
-        height={300}
-        width={650}
         keys={[
           'data'
         ]}

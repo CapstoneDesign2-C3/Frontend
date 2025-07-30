@@ -36,7 +36,7 @@ function HomePage() {
           />
         </div>
       </div>
-      <div className="flex justify-center items-center w-full mb-8 gap-8">
+      <div className="flex justify-center items-center mb-8 gap-8">
         <div>
           <div>이벤트별 발생 건수</div>
           <PieChart pieData={eventData}/>
@@ -46,7 +46,7 @@ function HomePage() {
           <LineChart lineData={timeData}/>
         </div>
       </div>
-      <div className="flex justify-center items-center w-full mb-8 gap-8">
+      <div className="flex justify-center items-center mb-8 gap-8">
         <div>
           <div>카메라별 이벤트 발생 건수</div>
           <BarChart barData={cameraData}/>

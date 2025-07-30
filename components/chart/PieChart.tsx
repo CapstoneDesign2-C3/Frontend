@@ -1,18 +1,16 @@
 "use client"
 
-import { Pie } from "@nivo/pie";
+import { ResponsivePie } from "@nivo/pie";
 import { PieData } from "@/utils/chartUtils";
 
 
 
 function PieChart({ pieData }: { pieData: PieData[] }) {
   return (
-    <div className="border">
-      <Pie
+    <div className="border h-[50vh] w-[30vw]">
+      <ResponsivePie
         data={pieData}
-        margin={{ top: 0, right: 80, bottom: 0, left: 80 }}
-        width={450}
-        height={400}
+        margin={{ top: 0, right: 100, bottom: 0, left: 100 }}
         colors={{scheme: 'purple_blue'}}
         innerRadius={0.75}
         enableArcLabels={true}
@@ -35,8 +33,8 @@ function PieChart({ pieData }: { pieData: PieData[] }) {
             symbolShape: 'square',
             symbolSize: 12,
             toggleSerie: true,
-            translateX: 60,
-            translateY: 130
+            translateX: 70,
+            translateY: 120
           }
         ]}
         activeInnerRadiusOffset={6}
