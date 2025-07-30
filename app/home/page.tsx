@@ -23,9 +23,8 @@ function HomePage() {
 
   return (
     <div className="flex-1 py-3">
-      <div className="flex justify-center items-center w-full mb-8 gap-8">
-        {/* === 날짜 선택기 추가 부분 === */}
-        <div className="mb-4">
+      <div className="flex justify-start items-center w-full mb-8 gap-8 px-4">
+        <div className="absolute left-4 top-16 bg-white rounded px-6 py-1 shadow font-medium">
           <DatePicker
             selected={date}
             onChange={(selectedDate) => {
@@ -33,9 +32,9 @@ function HomePage() {
             }}
             dateFormat="yyyy-MM-dd"
             maxDate={new Date()}
+            className="text-center text-lg"
           />
         </div>
-        {/* ========================= */}
       </div>
       <div className="flex justify-center items-center w-full mb-8 gap-8">
         <div>
