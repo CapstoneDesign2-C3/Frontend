@@ -7,7 +7,7 @@ function LineChart({ lineData }: { lineData: LineData[] }) {
   const safeData = Array.isArray(lineData) ? lineData : []; 
 
   return (
-    <div className="border border h-[40vh] w-[45vw]">
+    <div className="border border h-[50vh] w-[45vw]">
       <ResponsiveLine
         animate
         axisBottom={{
