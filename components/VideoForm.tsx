@@ -1,6 +1,6 @@
 "use client";
 
-import { VideoSummary } from "@/utils/videoUtil";
+import { VideoSummary } from "@/utils/videoUtils";
 import { useRouter } from "next/navigation";
 
 interface EventFormPros {
