@@ -33,10 +33,10 @@
 
 4. 카메라 조회 페이지 : 현재 데이터베이스에 존재하는 카메라의 위치를 구글맵에 마커 형태로 나타내며, 마커 클릭 시 카메라에 발생한 이벤트 정보를 조회할 수 있습니다. 이벤트 정보 클릭 시 이벤트의 상세 페이지로 이동합니다.
 <img width="1919" height="869" alt="image" src="https://github.com/user-attachments/assets/f09a23f5-db22-4319-862f-86f4dfd9be35" />
-<img width="1884" height="802" alt="image" src="https://github.com/user-attachments/assets/5ef6cb44-bdc1-4bf7-a0b1-78d9e4db5d97" />
+<img width="1901" height="904" alt="image" src="https://github.com/user-attachments/assets/86f5afb2-6a32-4232-9ad3-f050ea1dcbbe" />
 
 5. 보고서 생성 페이지 : 보고서를 생성할 객체 목록을 선택 후 보고서 생성 버튼을 클릭하면 객체의 정보, 동선 및 작성자가 포함된 hwp 파일을 다운로드할 수 있습니다.
-<img width="1919" height="716" alt="image" src="https://github.com/user-attachments/assets/35da8c12-030d-48b1-aa94-79d2ab10b97c" />
+<img width="1896" height="906" alt="image" src="https://github.com/user-attachments/assets/0f7cc8a5-6e4b-40b6-bb94-d4640e188c71" />
 
 6. 챗봇 모달 : 오른쪽 위의 ? 버튼을 클릭하여 챗봇 모달 창을 불러올 수 있으며, 자연어 형태로 원하는 데이터를 조회할 수 있습니다. (현재 API 미연결)
 <img width="1890" height="855" alt="image" src="https://github.com/user-attachments/assets/bc70edda-3a49-48de-ad93-7e12a36d7adb" />
