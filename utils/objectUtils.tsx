@@ -1,7 +1,7 @@
 export type DetectedObject = {
   detectedObjectId: number,
   categoryName: string,
-  cropImgUrl: string,
+  cropImg: string,
   alias: string | null,
   feature: string
 };

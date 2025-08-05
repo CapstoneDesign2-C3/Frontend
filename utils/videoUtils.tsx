@@ -10,7 +10,7 @@ export type VideoDetail = {
   videoUrl: string,
   detectedObjectUUID: string,
   detectedObjectAlias: string,
-  detectedObjectCropUrl: string,
+  detectedObjectCropImg: string,
   appearedTime: string,
   exitTime: string,
   categoryName: string,

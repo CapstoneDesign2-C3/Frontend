@@ -6,18 +6,18 @@ import axios from "axios";
 
 
 function ReportPage() {
-  // Zustand에서 selectedIds 상태 가져오기
   const selectedIds = objectReportStore(state => state.selectedIds);
 
   const handleCreateReport = async () => {
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-    //TODO 이름 작성하게 팝업 띄워서 입력 받기
+    const author = window.prompt("작성자 이름을 입력하세요.");
+    if (!author) return;
     try {
       const response = await axios.post(
         `${backendUrl}/api/v1/report/create-mobile-object-track`,
         {
           mobileObjectIds: selectedIds,
-          author: "이도훈"
+          author: author
         },
         {
           headers: { "Content-Type": "application/json" },

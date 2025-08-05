@@ -73,9 +73,9 @@ function Table() {
               <td className="border p-2 text-center">{obj.categoryName}</td>
               <td className="border p-2 text-center">
                 <img
-                  src={obj.cropImgUrl}
+                  src={`data:image/jpg;base64,${obj.cropImg}`}
                   alt="crop"
-                  className="w-16 h-16 object-cover rounded inline-block"
+                  className="object-cover rounded inline-block"
                 />
               </td>
               <td className="border p-2 text-center">{obj.alias ?? "이름 없음"}</td>

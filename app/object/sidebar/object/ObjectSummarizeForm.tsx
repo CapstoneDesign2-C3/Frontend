@@ -15,7 +15,7 @@ function ObjectSummarizeForm({ detectedObject , handleObjectClick }: ObjectFormP
           <div className="text-sm text-gray-700">{detectedObject.feature}</div>
           <div className="text-xs text-gray-400 mt-1">{detectedObject.categoryName}</div>
         </div>
-        <img src={detectedObject.cropImgUrl} alt={detectedObject.alias ?? "이름 없음"} className="object-cover rounded mb-2 block mx-auto" />
+        <img src={`data:image/jpg;base64,${detectedObject.cropImg}`} alt={"crop"} className="object-cover rounded mb-2 block mx-auto" />
       </div>
     </div>
   );
