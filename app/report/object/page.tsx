@@ -5,7 +5,7 @@ import objectReportStore from "@/store/objectReportStore";
 import axios from "axios";
 
 
-function ReportPage() {
+function ObjectReportPage() {
   const selectedIds = objectReportStore(state => state.selectedIds);
 
   const handleCreateReport = async () => {
@@ -68,4 +68,4 @@ function ReportPage() {
 }
 
 
-export default ReportPage;
+export default ObjectReportPage;
