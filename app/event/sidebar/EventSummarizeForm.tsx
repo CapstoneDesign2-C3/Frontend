@@ -23,8 +23,11 @@ function EventSummarizeForm({ event }: EventSummarizeFormProps) {
     <>
       <div
         key={event.eventUUID}
-        className="flex flex-col border rounded-lg shadow-sm p-3 bg-gray-50 cursor-pointer"
+        className="flex flex-col rounded-lg shadow-sm p-3 cursor-pointer"
         onClick={handleEventDetailFormClick}
+        style={{
+          background:'var(--first-color)'
+        }}
       >
         <div className="flex items-center mb-2">
           <span className="font-semibold">{event.eventCodeName}</span>

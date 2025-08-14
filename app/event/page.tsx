@@ -13,12 +13,10 @@ function VideoPage(){
   }, []);
 
   return (
-    <div className="h-screen">
-      <div className="flex h-full">
-        <TrackingMap />
-        <SideBar />
+    <div className="flex h-full">
+      <TrackingMap />
+      <SideBar />
       </div>
-    </div>
   );
 } 
 

@@ -25,14 +25,14 @@ function FilterPanel() {
   }
 
   return (
-    <div className="p-3 border-b bg-white flex flex-col gap-2">
+    <div className="p-3 flex flex-col gap-2">
       <div className="flex flex-col gap-2">
         <select
-          className="border rounded px-1 py-1 flex-1"
+          className="white-component rounded px-1 py-1 flex-1"
           value={eventCode}
           onChange={e => setEventCode(e.target.value)}
         >
-          <option value="">event code를 선택하세요.</option>
+          <option value="" >event code를 선택하세요.</option>
           {eventCodes.map(code => (
             <option key={code.eventCodeName} value={code.eventCodeName}>
               {code.eventCodeName}
