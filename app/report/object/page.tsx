@@ -55,7 +55,7 @@ function ObjectReportPage() {
     <div className="flex-1">
       <div className="flex justify-end">
         <button
-          className="px-3 py-1 bg-gray-200 rounded"
+          className="px-3 py-1 mx-4 my-2 white-component rounded"
           onClick={handleCreateReport}
           disabled={selectedIds.length === 0} // 선택된 ID 없으면 비활성화 가능
         >

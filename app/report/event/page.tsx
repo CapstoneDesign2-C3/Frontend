@@ -77,7 +77,7 @@ function EventReportPage() {
         </label>
         <div className="flex justify-end">
           <button
-            className="px-3 py-1 bg-gray-200 rounded"
+            className="px-3 py-1 bg-gray-200 rounded white-component"
             onClick={handleCreateReport}
           >
             보고서 작성
