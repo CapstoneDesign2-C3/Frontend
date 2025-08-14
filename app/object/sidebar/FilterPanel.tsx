@@ -14,11 +14,11 @@ function FilterPanel() {
   }
 
   return (
-    <div className="p-3 border-b bg-white flex flex-col gap-2">
+    <div className="p-3 flex-col gap-2">
       <div className="flex flex-col gap-2">
         <input
           type="text"
-          className="border rounded px-1 py-1 flex-1"
+          className="white-component rounded px-1 py-1 flex-1"
           placeholder="alias를 입력하세요."
           value={alias}
           onChange={e => setAlias(e.target.value)}

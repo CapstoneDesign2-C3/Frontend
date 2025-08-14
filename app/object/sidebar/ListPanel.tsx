@@ -58,21 +58,21 @@ function ListPanel() {
   }, []);
 
   return (
-    <div className="flex h-[calc(100vh-80px)] overflow-y-auto relative">
+    <div className="flex h-full overflow-y-auto relative">
       <div className="flex-1 space-y-2 w-[300px] p-4 h-full">
         <div className="flex justify-between mt-4">
           <button
             onClick={handlePrevPage}
             disabled={page === 0 || isLoading}
-            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+            className="px-3 py-1 white-component rounded disabled:opacity-50"
           >
             이전
           </button>
-          <span className="text-sm text-gray-600">페이지 {page + 1}</span>
+          <span className="text-sm ">페이지 {page + 1}</span>
           <button
             onClick={handleNextPage}
             disabled={!hasNext || isLoading}
-            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+            className="px-3 py-1 white-component rounded disabled:opacity-50"
           >
             다음
           </button>
@@ -91,15 +91,17 @@ function ListPanel() {
         )}
 
         {sidebarOpen && (
-          <div className="w-[300px] bg-white border-l shadow-lg absolute top-0 h-full z-50 flex flex-col right-0">
+          <div className="w-[280px] shadow-lg absolute top-0 h-screen z-50 flex flex-col right-0" style={{
+            background: 'var(--second-color)'
+          }}>
             
-            <div className="flex-1 overflow-y-auto p-4">
+            <div className="flex-1 overflow-y-auto">
               <div className="flex items-center justify-between mb-4">
-                <h1 className="font-semibold text-m">
+                <h1 className="font-semibold text-sm">
                   {selectedObject?.alias ?? "이름 없음"}의 이벤트 목록
                 </h1>
                 <button
-                  className="px-3 py-1 bg-gray-200 rounded"
+                  className="px-3 py-1 white-component rounded"
                   onClick={() => setSidebarOpen(false)}
                 >
                   닫기

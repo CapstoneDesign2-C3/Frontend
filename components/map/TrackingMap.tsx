@@ -9,9 +9,9 @@ function TrackingMap() {
   const {dateRange, setDateRange} = searchStore();
 
   return (
-    <div className="flex-1">
+    <div className="flex-1 h-full">
         <GoogleMap />
-      <div className="absolute left-4 top-16 bg-white rounded px-6 py-1 shadow text-sm font-medium z-10">
+      <div className="absolute left-4 top-16 white-component rounded px-6 py-1 shadow text-sm font-medium z-10">
         <DatePicker
           selectsRange
           startDate={dateRange[0]}
@@ -19,7 +19,7 @@ function TrackingMap() {
           onChange={(update: [Date | null, Date | null]) => setDateRange(update)}
           isClearable={false}
           dateFormat="yyyy-MM-dd"
-          className="w-45 text-center"
+          className="w-45 text-center white-component"
         />
       </div>
     </div>

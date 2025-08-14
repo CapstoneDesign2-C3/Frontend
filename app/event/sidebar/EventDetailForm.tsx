@@ -33,7 +33,7 @@ function EventDetailForm({eventId}: EventDetailFormProps) {
 
   if (!video) return <div>로딩 중...</div>;
   return (
-    <div>
+    <div className="white-component">
       <h2 className="text-xl font-semibold mb-2">{video.eventCodeName}</h2>
       <div className="flex flex-col items-center justify-center text-center">
         <video

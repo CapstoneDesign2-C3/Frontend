@@ -3,7 +3,7 @@ import SideBar from '@/app/object/sidebar/SideBar';
 
 function HomeLayout(){
   return (
-    <div className="h-screen">
+    <div className="h-full">
       <div className="flex h-full">
         <TrackingMap />
         <SideBar />

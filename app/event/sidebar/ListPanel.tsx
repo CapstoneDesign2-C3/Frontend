@@ -33,21 +33,21 @@ function ListPanel() {
   }, []);
 
   return (
-    <div className="flex h-[calc(100vh-80px)] overflow-y-auto relative">
+    <div className="flex h-full overflow-y-auto relative">
       <div className="flex-1 space-y-2 w-[300px] p-4 h-full">
         <div className="flex justify-between mt-4">
           <button
             onClick={handlePrevPage}
             disabled={page === 0 || isLoading}
-            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+            className="px-3 py-1 white-component rounded disabled:opacity-50"
           >
             이전
           </button>
-          <span className="text-sm text-gray-600">페이지 {page + 1}</span>
+          <span className="text-sm">페이지 {page + 1}</span>
           <button
             onClick={handleNextPage}
             disabled={!hasNext || isLoading}
-            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+            className="px-3 py-1 white-component rounded disabled:opacity-50"
           >
             다음
           </button>

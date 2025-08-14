@@ -5,7 +5,9 @@ import { ResponsiveBar } from "@nivo/bar";
 
 function BarChart({ barData }: { barData: BarData[] }){
   return(
-    <div className="border h-[40vh] w-[35vw]">
+    <div className="h-[40vh] w-[35vw] text-black" style={{
+      backgroundColor: "var(--first-color)"
+    }}>
       <ResponsiveBar
         data={barData}
         keys={[
@@ -19,9 +21,16 @@ function BarChart({ barData }: { barData: BarData[] }){
           top: 60
         }}
         colorBy="indexValue"
-        colors={{ scheme: "purple_blue" }}
+        colors={{ scheme: "tableau10" }}
         padding={0.4}
-        
+        theme={{
+          labels: { text: { fill: "#fff" } },
+          axis: {
+            ticks: { text: { fill: "#fff" } },
+            legend: { text: { fill: "#fff" } }
+          },
+          legends: { text: { fill: "#fff" } }
+        }}
       />
     </div>
   );

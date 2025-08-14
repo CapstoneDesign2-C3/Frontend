@@ -35,7 +35,7 @@ function EventDetailForm({video}: EventDetailFormProps) {
 
   if (!videoDetail) return <div>로딩 중...</div>;
   return (
-    <div>
+    <div className="white-component">
       <h2 className="text-xl font-semibold mb-2">{video.cameraScenery}</h2>
       <div className="flex flex-col items-center justify-center text-center">
         <video
@@ -53,12 +53,11 @@ function EventDetailForm({video}: EventDetailFormProps) {
               <h2 className="text-xs mb-2">퇴장 | {video.exitTime}</h2>
             </div>
             <div className="w-full">
-              <h2 className="text-s font-semibold mb-2">상황 요약</h2>
+              <h2 className="text-s font-semibold mb-2">특징 요약</h2>
               <div className="border rounded bg-white p-4 max-h-[20%] w-full text-sm mb-2 flex overflow-y-auto">
                 {videoDetail?.feature}
               </div>
               <h2 className="text-xs mb-2">클래스 | {videoDetail.categoryName}</h2>
-              <h2 className="text-xs mb-2">특징 | {videoDetail.feature}</h2>
             </div>
           </div>
         </div>

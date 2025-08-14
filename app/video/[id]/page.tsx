@@ -46,12 +46,12 @@ function VideoDetailPage() {
       {/* 오른쪽: 객체 메뉴 */}
       <div className="w-[20%] h-full p-4 border-l flex flex-col">
         <button
-          className="mb-4 text-sm text-blue-600 hover:underline self-start flex items-center gap-1"
+          className="mb-4 text-sm hover:underline self-start flex items-center gap-1"
           onClick={() => router.back()}
         >
           <span aria-hidden="true">←</span> 이전 페이지
         </button>
-        <h2 className="text-xl text-center mb-4">객체 메뉴</h2>
+        <h2 className="text-xl text-center mb-2">객체 메뉴</h2>
         <div className="flex-1 max-h-screen overflow-y-auto">
           {video.detectedObjects && video.detectedObjects.length > 0 ? (
             video.detectedObjects.map((obj, idx) => (

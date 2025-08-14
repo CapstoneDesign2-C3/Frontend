@@ -18,8 +18,9 @@ function VideoForm({ video }: EventFormPros) {
     <>
       <div
         key={video.videoId}
-        className="flex flex-col border rounded-lg shadow-sm p-3 bg-gray-50 cursor-pointer"
+        className="flex flex-col p-3 cursor-pointer"
         onClick={handleMoveToPage}
+        style={{background: 'var(--first-color)'}}
       >
         <img src={video.thumbnailUrl} alt="로딩 실패" className="w-full h-28 object-cover rounded mb-2" />
         <div className="text-xs text-gray-400 mt-1">시작 시간 : {video.startTime}</div>
