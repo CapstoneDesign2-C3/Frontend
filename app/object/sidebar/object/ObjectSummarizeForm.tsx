@@ -8,14 +8,16 @@ interface ObjectFormProps {
 
 function ObjectSummarizeForm({ detectedObject , handleObjectClick }: ObjectFormProps) {
     return (
-    <div onClick={() => handleObjectClick(detectedObject)} className="border rounded">
+    <div onClick={() => handleObjectClick(detectedObject)} className="rounded" style={{
+      background: 'var(--first-color)'
+    }}>
       <div className="flex">
         <div className="flex-1 items-center mb-2">
           <span className="font-semibold">{detectedObject.alias ?? "이름 없음"}</span>
-          <div className="text-sm text-gray-700">{detectedObject.feature}</div>
-          <div className="text-xs text-gray-400 mt-1">{detectedObject.categoryName}</div>
+          <div className="text-sm">{detectedObject.feature}</div>
+          <div className="text-xs">{detectedObject.categoryName}</div>
         </div>
-        <img src={`data:image/jpg;base64,${detectedObject.cropImg}`} alt={"crop"} className="object-cover rounded mb-2 block mx-auto" />
+        <img src={`data:image/jpg;base64,${detectedObject.cropImg}`} alt={"crop"} className="w-12 h-24"/>
       </div>
     </div>
   );
