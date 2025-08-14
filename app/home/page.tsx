@@ -24,7 +24,7 @@ function HomePage() {
   return (
     <div className="flex-1 py-3">
       <div className="flex justify-start items-center w-full mb-8 gap-8 px-4">
-        <div className="absolute left-4 top-14 bg-white rounded px-6 py-1 shadow font-medium">
+        <div className="absolute left-4 top-14 white-component rounded px-6 py-1 shadow font-medium">
           <DatePicker
             selected={date}
             onChange={(selectedDate) => {
