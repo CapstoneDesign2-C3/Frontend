@@ -90,7 +90,7 @@ function chatbot() {
       >
         <input
           type="text"
-          className="flex-1 border rounded px-2 py-1"
+          className="flex-1 border rounded px-2 py-1 white-component"
           placeholder="질문을 입력하세요..."
           value={input}
           onChange={e => setInput(e.target.value)}

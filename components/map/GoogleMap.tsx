@@ -90,7 +90,7 @@ function MyGoogleMap({ onMarkerClick }: GoogleMapProps) {
 
   return (
     <GoogleMap
-      mapContainerClassName="w-full h-screen"
+      mapContainerClassName="w-full h-full"
       center={center}
       zoom={zoom}
       options={{ streetViewControl: false, mapTypeControl: false }}

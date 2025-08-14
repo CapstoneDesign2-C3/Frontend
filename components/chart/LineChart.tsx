@@ -7,7 +7,9 @@ function LineChart({ lineData }: { lineData: LineData[] }) {
   const safeData = Array.isArray(lineData) ? lineData : []; 
 
   return (
-    <div className="border border h-[50vh] w-[45vw]">
+    <div className="h-[50vh] w-[45vw] text-black" style={{
+      backgroundColor: "var(--first-color)"
+    }}>
       <ResponsiveLine
         animate
         axisBottom={{
@@ -16,7 +18,7 @@ function LineChart({ lineData }: { lineData: LineData[] }) {
         }}
         curve="linear"
         data={safeData}
-        colors={['#87A8CB']}
+        colors={{scheme:'tableau10'}}
         enableTouchCrosshair
         initialHiddenIds={['cognac']}
         margin={{ bottom: 60, left: 30, right: 20, top: 20 }}
@@ -32,6 +34,14 @@ function LineChart({ lineData }: { lineData: LineData[] }) {
         }}
         yScale={{
           type: 'linear'
+        }}
+        theme={{
+          labels: { text: { fill: "#fff" } },
+          axis: {
+            ticks: { text: { fill: "#fff" } },
+            legend: { text: { fill: "#fff" } }
+          },
+          legends: { text: { fill: "#fff" } }
         }}
       />
     </div>

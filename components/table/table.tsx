@@ -39,8 +39,8 @@ function Table() {
 
   return (
     <div className="p-4">
-      <table className="min-w-full border border-gray-300">
-        <thead className="bg-gray-100">
+      <table className="min-w-full">
+        <thead>
           <tr>
             <th className="border p-2 text-left w-10">
               <input
@@ -61,7 +61,7 @@ function Table() {
         </thead>
         <tbody>
           {detectedObjects.map((obj) => (
-            <tr key={obj.detectedObjectId} className="border-t hover:bg-gray-50">
+            <tr key={obj.detectedObjectId} className="border-t hover:bg-[var(--third-color)]">
               <td className="border p-2">
                 <input
                   type="checkbox"
@@ -75,7 +75,7 @@ function Table() {
                 <img
                   src={`data:image/jpg;base64,${obj.cropImg}`}
                   alt="crop"
-                  className="object-cover rounded inline-block"
+                  className="object-cover rounded inline-block w-12 h-24"
                 />
               </td>
               <td className="border p-2 text-center">{obj.alias ?? "이름 없음"}</td>
@@ -88,15 +88,15 @@ function Table() {
         <button
           onClick={handlePrevPage}
           disabled={page === 0 || isLoading}
-          className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+          className="px-3 py-1 white-component rounded disabled:opacity-50"
         >
           이전
         </button>
-        <span className="text-sm text-gray-600">페이지 {page + 1}</span>
+        <span className="text-sm">페이지 {page + 1}</span>
         <button
           onClick={handleNextPage}
           disabled={!hasNext || isLoading}
-          className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+          className="px-3 py-1 white-component rounded disabled:opacity-50"
         >
           다음
         </button>
