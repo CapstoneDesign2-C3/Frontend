@@ -1,10 +1,13 @@
 import ChatbotButton from "@/components/ChatbotButton";
+import Link from "next/link";
 
 function Header() {
   return (
     <header className="h-[5vh] bg-[var(--first-color)] flex items-center justify-between px-4">
       <div className="flex items-center gap-2">
-        <img src="/icons/logo.png" width={120} height={28} alt="Hiperwall 로고" />
+        <Link href="/home">
+          <img src="/icons/logo.png" alt="Hiperwall 로고" style={{ cursor: "pointer" }} className="h-[3vh]"/>
+        </Link>
       </div>
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-1">
