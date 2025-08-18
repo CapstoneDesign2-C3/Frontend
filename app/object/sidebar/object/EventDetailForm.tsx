@@ -48,7 +48,7 @@ function EventDetailForm({video}: EventDetailFormProps) {
         <h2 className="text-l mb-2">{videoDetail.detectedObjectAlias ?? "이름 없음"}</h2>
           <div className="flex">
             <div>
-              <img src={`data:image/jpg;base64,${videoDetail.detectedObjectCropImg}`} alt={videoDetail.detectedObjectAlias ?? "이름 없음"} className="object-cover rounded mb-2" />
+              <img src={`data:image/jpg;base64,${videoDetail.detectedObjectCropImg}`} alt={videoDetail.detectedObjectAlias ?? "이름 없음"} className="w-30 h-48 object-cover rounded mb-2" />
               <h2 className="text-xs mb-2">출현 | {video.appearedTime}</h2>
               <h2 className="text-xs mb-2">퇴장 | {video.exitTime}</h2>
             </div>
