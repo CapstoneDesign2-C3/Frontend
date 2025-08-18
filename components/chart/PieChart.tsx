@@ -7,12 +7,12 @@ import { PieData } from "@/utils/chartUtils";
 
 function PieChart({ pieData }: { pieData: PieData[] }) {
   return (
-    <div className="h-[50vh] w-[30vw] text-black"style={{
+    <div className="h-[40vh] w-[30vw] text-black"style={{
       backgroundColor: "var(--first-color)"
     }}>
       <ResponsivePie
         data={pieData}
-        margin={{ top: 0, right: 100, bottom: 0, left: 100 }}
+        margin={{ top: 40, right: 100, bottom: 40, left: 100 }}
         colors={{scheme: 'tableau10'}}
         innerRadius={0.75}
         enableArcLabels={true}

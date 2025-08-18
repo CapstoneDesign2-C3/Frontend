@@ -15,7 +15,7 @@ function Camera(){
   }, []);
 
   return (
-  <div className="flex h-full">
+  <div className="flex h-full w-full">
     <GoogleMap onMarkerClick={selectCamera} />
     {camera && (
     <div className="w-[20%] flex flex-col h-full">

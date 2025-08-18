@@ -1,42 +1,26 @@
 import ChatbotButton from "@/components/ChatbotButton";
 
-function CommonHeader() {
+function Header() {
   return (
-    <header
-    style={{
-      backgroundColor: "var(--first-color)",
-      color: "var(--foreground)"
-    }}>
-      <nav>
-        <ul>
-          <li className="flex space-x-10 px-6 py-3 relative">
-            <a href="/home" className="hover:text-blue-400">Home</a>
-            <a href="/object" className="hover:text-blue-400">Object</a>
-            <a href="/event" className="hover:text-blue-400">Event</a>
-            <a href="/camera" className="hover:text-blue-400">Camera</a>
-            <div className="relative group">
-              <a
-                href="#"
-                className="hover:text-blue-400"
-              >
-                Report
-              </a>
-              <div className="absolute w-20 z-50 hidden group-hover:block"
-                style={{
-                  backgroundColor: "var(--first-color)",
-                  color: "var(--foreground)",
-                }}
-              >
-                <a href="/report/event" className="block py-2 text-center">Event</a>
-                <a href="/report/object" className="block py-2 text-center">Object</a>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </nav>
-      <ChatbotButton />
+    <header className="h-[5vh] bg-[var(--first-color)] flex items-center justify-between px-4">
+      <div className="flex items-center gap-2">
+        <img src="/icons/logo.png" width={120} height={28} alt="Hiperwall 로고" />
+      </div>
+      <div className="flex items-center gap-4">
+        <div className="flex items-center gap-1">
+          <span className="text-red-500 text-xl">●</span>
+          <span className="text-sm text-gray-300">
+            최근접속: 2025-06-27 16:33 (192.168.0.80)
+          </span>
+        </div>
+        <span className="text-sm text-gray-300">관리자</span>
+        <button className="bg-blue-500 hover:bg-blue-600 text-white rounded px-3 py-1 text-sm">
+          로그아웃
+        </button>
+        <ChatbotButton />
+      </div>
     </header>
   );
 }
 
-export default CommonHeader;
+export default Header;

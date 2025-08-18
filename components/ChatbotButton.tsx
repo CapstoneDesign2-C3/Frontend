@@ -15,7 +15,7 @@ function chatbotButton(){
     <button
       aria-label="챗봇 열기"
       onClick={() => setModalOpen(true)}
-      className="fixed top-2 right-5 border border-gray-300 text-gray-500 bg-white shadow rounded-full w-8 h-8 flex items-center justify-center z-50 hover:border-gray-500 hover:text-black"
+      className="top-2 right-5 border border-gray-300 text-gray-500 bg-white shadow rounded-full w-8 h-8 flex items-center justify-center z-50 hover:border-gray-500 hover:text-black"
     >
     <svg
       width={18}

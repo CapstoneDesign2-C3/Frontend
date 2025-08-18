@@ -5,7 +5,7 @@ import { ResponsiveBar } from "@nivo/bar";
 
 function BarChart({ barData }: { barData: BarData[] }){
   return(
-    <div className="h-[40vh] w-[35vw] text-black" style={{
+    <div className="h-[35vh] w-[80vh] text-black" style={{
       backgroundColor: "var(--first-color)"
     }}>
       <ResponsiveBar

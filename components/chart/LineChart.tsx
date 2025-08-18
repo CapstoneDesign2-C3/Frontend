@@ -7,7 +7,7 @@ function LineChart({ lineData }: { lineData: LineData[] }) {
   const safeData = Array.isArray(lineData) ? lineData : []; 
 
   return (
-    <div className="h-[50vh] w-[45vw] text-black" style={{
+    <div className="h-[40vh] w-[45vw] text-black" style={{
       backgroundColor: "var(--first-color)"
     }}>
       <ResponsiveLine

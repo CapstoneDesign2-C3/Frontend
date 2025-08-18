@@ -34,7 +34,7 @@ function ListPanel() {
 
   return (
     <div className="flex h-full overflow-y-auto relative">
-      <div className="flex-1 space-y-2 w-[300px] p-4 h-full">
+      <div className="flex-1 space-y-2 w-[300px] p-4 h-[95vh]">
         <div className="flex justify-between mt-4">
           <button
             onClick={handlePrevPage}

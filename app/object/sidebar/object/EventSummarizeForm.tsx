@@ -26,7 +26,7 @@ function EventSummarizeForm({ video, idx }: EventSummarizeFormProps) {
         className="w-full shadow-sm p-3 cursor-pointer"
         onClick={handleEventDetailFormClick}
         style={{
-          background: 'var(--third-color)'
+          background: 'var(--first-color)'
         }}
       >
         <div className="flex items-center mb-2">

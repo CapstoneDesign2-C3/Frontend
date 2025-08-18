@@ -13,7 +13,7 @@ function VideoPage(){
   }, []);
 
   return (
-    <div className="flex h-full">
+    <div className="flex h-full w-full">
       <TrackingMap />
       <SideBar />
       </div>
