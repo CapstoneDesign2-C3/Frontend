@@ -23,23 +23,24 @@
 
 ## 주요 기능
 1. 통계 대시보드 페이지 : 날짜를 선택하면 해당 일자의 이벤트와 관련된 통계를 나타냅니다.
-<img width="1880" height="854" alt="image" src="https://github.com/user-attachments/assets/0a31388d-15b8-437c-8b4b-0273a10af81e" />
+<img width="1912" height="904" alt="image" src="https://github.com/user-attachments/assets/19db2827-b935-4d2a-bfd7-b2987f978fea" />
 
 2. 객체 조회 페이지 : 기간을 선택하고 이동하는 객체(사람)을 클릭하면 해당 객체의 동선(이벤트 목록)을 나타냅니다. 해당 이벤트 클릭 시 이벤트의 상세 정보를 모달 형태로 조회합니다. 지정한 별칭(Alias)을 통해 검색할 수 있습니다. 
-<img width="2877" height="1270" alt="image" src="https://github.com/user-attachments/assets/09377cac-69c1-4c69-a0e9-108c369bbe5d" />
+<img width="1915" height="913" alt="image" src="https://github.com/user-attachments/assets/ce7e5b26-838b-4296-a399-46e9ad7fc91b" />
 
 3. 이벤트 조회 페이지 : 기간을 선택하여 해당 기간동안 발생한 이벤트를 조회합니다. 해당 이벤트 클릭 시 이벤트의 상세 정보를 모달 형태로 조회합니다. 데이터베이스에 저장된 이벤트 목록을 통해 검색할 수 있습니다.
-<img width="1894" height="852" alt="image" src="https://github.com/user-attachments/assets/5ab5139e-97e5-464f-b552-d06ef01e1163" />
+<img width="1915" height="909" alt="image" src="https://github.com/user-attachments/assets/94f9ffe1-d957-4cf9-84c4-c07bcbe2ffa6" />
 
 4. 카메라 조회 페이지 : 현재 데이터베이스에 존재하는 카메라의 위치를 구글맵에 마커 형태로 나타내며, 마커 클릭 시 카메라에 발생한 이벤트 정보를 조회할 수 있습니다. 이벤트 정보 클릭 시 이벤트의 상세 페이지로 이동합니다.
-<img width="1919" height="869" alt="image" src="https://github.com/user-attachments/assets/f09a23f5-db22-4319-862f-86f4dfd9be35" />
-<img width="1901" height="904" alt="image" src="https://github.com/user-attachments/assets/86f5afb2-6a32-4232-9ad3-f050ea1dcbbe" />
+<img width="1917" height="905" alt="image" src="https://github.com/user-attachments/assets/472b6383-3cd1-4fe6-ba4a-7658b5be548d" />
+<img width="1908" height="901" alt="image" src="https://github.com/user-attachments/assets/43a09209-a0a0-4fad-9401-c467f6f448d8" />
 
 5. 보고서 생성 페이지 : 보고서를 생성할 객체 목록을 선택 후 보고서 생성 버튼을 클릭하면 객체의 정보, 동선 및 작성자가 포함된 hwp 파일을 다운로드할 수 있습니다.
-<img width="1896" height="906" alt="image" src="https://github.com/user-attachments/assets/0f7cc8a5-6e4b-40b6-bb94-d4640e188c71" />
+<img width="1914" height="909" alt="image" src="https://github.com/user-attachments/assets/e42a2b5f-5fa6-4c42-b95a-a7e20429aa17" />
+<img width="1913" height="906" alt="image" src="https://github.com/user-attachments/assets/f9eb205a-1448-4ca4-a290-6f06d5ad85a7" />
 
 6. 챗봇 모달 : 오른쪽 위의 ? 버튼을 클릭하여 챗봇 모달 창을 불러올 수 있으며, 자연어 형태로 원하는 데이터를 조회할 수 있습니다. (현재 API 미연결)
-<img width="1890" height="855" alt="image" src="https://github.com/user-attachments/assets/bc70edda-3a49-48de-ad93-7e12a36d7adb" />
+<img width="1917" height="909" alt="image" src="https://github.com/user-attachments/assets/71986037-22d3-4d39-8b81-33f10de9a855" />
 
 ## 실행 방법
 (※ [백엔드 서버](https://github.com/CapstoneDesign2-C3/Backend)를 우선적으로 배포한 후에 사용할 수 있습니다.)
