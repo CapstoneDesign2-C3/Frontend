@@ -23,7 +23,7 @@ function VideoDetailPage() {
   if (!video) return <div>비디오 정보가 없습니다. 잠시만 기다려주세요.</div>;
 
   return (
-    <div className="flex h-screen w-full">
+    <div className="flex h-full w-full">
       {/* 영상 및 정보 영역 */}
       <div className="flex-1 p-6 flex flex-col gap-2">
         <video
@@ -43,7 +43,7 @@ function VideoDetailPage() {
       </div>
 
       {/* 객체 메뉴 영역 */}
-      <div className="w-[300px] min-w-[180px] h-full p-4 flex flex-col">
+      <div className="w-[35vh] h-[95vh] p-4 flex flex-col">
         <button
           className="mb-4 text-sm hover:underline self-start flex items-center gap-1"
           onClick={() => router.back()}
