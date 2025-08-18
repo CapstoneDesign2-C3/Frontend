@@ -1,7 +1,7 @@
 export type Video = {
   detectionId : number,
   cameraScenery : string,
-  thumbnailUrl : string,
+  detectionCropImg : string,
   appearedTime : string,
   exitTime : string,
 }

@@ -33,7 +33,7 @@ function EventSummarizeForm({ video, idx }: EventSummarizeFormProps) {
           <span className="w-6 h-6 flex items-center justify-center bg-red-500 rounded-full mr-2">{idx}</span>
           <span className="font-semibold">{video.cameraScenery}</span>
         </div>
-        <img src={video.thumbnailUrl} alt="로딩 실패" className="w-full h-28 object-cover mb-2" />
+        <img src={`data:image/jpg;base64,${video.detectionCropImg}`} alt={"crop"} className="w-12 h-24 object-cover mb-2"/>
         <div className="text-xs text-gray-400 mt-1">등장 시간 : {video.appearedTime}</div>
         <div className="text-xs text-gray-400 mt-1">퇴장 시간 : {video.exitTime}</div>
       </div>

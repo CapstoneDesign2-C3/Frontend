@@ -13,6 +13,7 @@ type DetectedObjectStore = {
   selectedVideos: Video[];
   setSelectedVideos: (detectedObjectId: number, startTime: string, endTime: string) => void;
   fetchDetectedObjects: (page: number, size: number, categoryName?: string, alias?: string, searchInput?: string) => void;
+  fetchAlias: (alias: string, detectedObjectId: number) => void;
 }
 
 const detectedObjectStore = create<DetectedObjectStore>((set) => ({
@@ -65,7 +66,18 @@ const detectedObjectStore = create<DetectedObjectStore>((set) => ({
       set({ isLoading: false });
       console.error("객체 목록을 불러오지 못했습니다:", error);
     }
-  }
+  },
+  fetchAlias: async (alias, detectedObjectId) => {
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+    try {
+      const res = await axios.put(`${backendUrl}/api/v1/detected-object/${detectedObjectId}`, alias, {
+        headers: { 'Content-Type': 'text/plain' }
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error("별칭 변경에 실패했습니다.", error);
+    }
+  },
 }));
 
 export default detectedObjectStore;
