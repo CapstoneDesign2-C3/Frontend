@@ -1,27 +1,22 @@
-FROM node:20-alpine AS development-dependencies-env
-COPY . /app
+# 1. Dependencies
+FROM node:20-alpine AS deps
 WORKDIR /app
+COPY package.json package-lock.json ./
 RUN npm ci
 
-
-FROM node:20-alpine AS production-dependencies-env
-COPY ./package.json package-lock.json /app/
+# 2. Build
+FROM node:20-alpine AS build
 WORKDIR /app
-RUN npm ci --omit=dev
-
-
-FROM node:20-alpine AS build-env
-COPY . /app/
-COPY --from=development-dependencies-env /app/node_modules /app/node_modules
-WORKDIR /app
+COPY . .
+COPY --from=deps /app/node_modules ./node_modules
 RUN npm run build
 
-
-FROM node:20-alpine
-COPY ./package.json package-lock.json /app/
-COPY --from=production-dependencies-env /app/node_modules /app/node_modules
-COPY --from=build-env /app/.next /app/.next
-COPY ./public /app/public
+# 3. Production
+FROM node:20-alpine AS production
 WORKDIR /app
+COPY package.json package-lock.json ./
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=build /app/.next ./.next
+COPY public ./public
 EXPOSE 3000
 CMD ["npm", "run", "start"]
