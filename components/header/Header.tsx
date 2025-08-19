@@ -5,8 +5,8 @@ function Header() {
   return (
     <header className="h-[5vh] bg-[var(--first-color)] flex items-center justify-between px-4">
       <div className="flex items-center gap-2">
-        <Link href="/home">
-          <img src="/icons/logo.png" alt="Hiperwall 로고" style={{ cursor: "pointer" }} className="h-[3vh]"/>
+        <Link href="/">
+          <img src="/icons/logo.png" alt="Hiperwall 로고" style={{ cursor: "pointer" }} className="h-[4vh]"/>
         </Link>
       </div>
       <div className="flex items-center gap-4">
