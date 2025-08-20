@@ -7,8 +7,8 @@ const menuItems = [
   { href: "/object", icon: "/icons/object.png", text: "객체추적" },
   { href: "/event", icon: "/icons/event.png", text: "감지내역" },
   { href: "/camera", icon: "/icons/camera.png", text: "카메라" },
-  { href: "/report/event", icon: "/icons/report.png", text: <>객체<br />보고서 </>},
-  { href: "/report/object", icon: "/icons/report.png", text: <>이벤트<br />보고서</> },
+  { href: "/report/object", icon: "/icons/report.png", text: <>객체<br />보고서 </>},
+  { href: "/report/event", icon: "/icons/report.png", text: <>이벤트<br />보고서</> },
 ];
 
 function Sidebar() {
