@@ -4,8 +4,8 @@
 - [주요 기능](#주요-기능)
 - [실행 방법](#실행-방법)
 
-## 시스템 구조도
-<img width="1434" height="771" alt="image" src="https://github.com/user-attachments/assets/e31d84d6-ffec-4ad5-a6c8-e6938ef5fd70" />
+## 시스템 흐름도
+<img width="1375" height="688" alt="image" src="https://github.com/user-attachments/assets/aac28ec2-e4fc-403b-b1cb-94bc72c4e744" />
 
 - Video Receiver : 여러 대의 IP 카메라로부터 실시간으로 영상을 수집하여 일괄적으로 관리하는 하드웨어 또는 소프트웨어 장치입니다. 본 개발 환경에서는 한화테크윈의 QRS-430S NVR 장치 및 QNO-6082R IP 카메라를 도입했습니다.  각 카메라의 RTSP 스트림을 수신하며 필요 시 S3와 같은 Cloud 저장공간에서 영상을 저장할 수 있습니다. 이를 통해 다양한 브랜드 및 모델의 카메라를 통합적으로 관리하고 한 곳에서 영상 소스를 효율적으로 제어합니다.
 - Stream Server : Video Receiver에서 RTSP 스트림 영상 데이터를 실시간으로 받아 내부 분석 파이프라인의 시작점이 됩니다. 전달받은 스트림 영상을 분석해 사람 객체 인식, ReID 식별, VLM을 통한 객체 특징의 텍스트 변환, DB 저장을 수행합니다. 영상 처리 이벤트는 Kafka 기반 메시지 큐를 활용해 비동기적으로 분산 처리되며, 이를 통해 다수의 카메라에서 발생하는 실시간 데이터의 부하를 효과적으로 분산 및 관리할 수 있습니다.
