@@ -1,4 +1,4 @@
-// docker run --rm -it -v ${PWD}:/scripts -e K6_LOG_LEVEL=info grafana/k6 run /scripts/rest_test.js
+// docker run --rm -it -v ${PWD}:/scripts -e K6_LOG_LEVEL=info grafana/k6 run /scripts/object_report_test.js
 
 import http from 'k6/http';
 import { check, sleep } from 'k6';
