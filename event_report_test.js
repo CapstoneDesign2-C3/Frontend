@@ -9,7 +9,7 @@ export let options = {
 };
 
 export default function () {
-    const url = 'http://3.35.16.8/api/v1/report/create-event';
+    const url = `${backend_url}/api/v1/report/create-event`;
 
     const payload = JSON.stringify({
         "startTime": "2025-07-21T00:00:00.00",

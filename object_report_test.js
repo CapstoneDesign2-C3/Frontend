@@ -9,7 +9,7 @@ export let options = {
 };
 
 export default function () {
-    const url = 'http://3.35.16.8/api/v1/report/create-mobile-object-track';
+    const url = `${backend_url}/api/v1/report/create-mobile-object-track`;
 
     const payload = JSON.stringify({
         mobileObjectIds: [1511, 1512, 1513, 1514, 1516, 1517, 1518, 1519, 1520, 1522],
